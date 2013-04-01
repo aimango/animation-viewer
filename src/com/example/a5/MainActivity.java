@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
 			Paint paint = new Paint();
-			paint.setColor(Color.WHITE);
+			paint.setColor(Color.BLACK);
 			paint.setStrokeWidth(3);
 			paint.setStyle(Paint.Style.STROKE);
 			Path path = new Path();
