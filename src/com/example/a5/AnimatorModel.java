@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
@@ -30,9 +31,6 @@ public class AnimatorModel extends Object {
 	public enum State {
 		draw, erase, selection, dragged, playing, export
 	};
-
-	// /* A list of the model's views. */
-	// private ArrayList<IView> views = new ArrayList<IView>();
 
 	private State state = State.draw;
 	private boolean stillDragging = true;
@@ -285,7 +283,7 @@ public class AnimatorModel extends Object {
 				Element segment = doc.createElement("segment");
 				rootElement.appendChild(segment);
 
-				segment.setAttribute("color", String.valueOf(s.getColor())); //
+				segment.setAttribute("color", String.valueOf(s.getColor()));
 				segment.setAttribute("stroke", String.valueOf(s.getStroke()));
 				segment.setAttribute("start", String.valueOf(s.getStartTime()));
 				segment.setAttribute("end", String.valueOf(s.getEndTime()));
@@ -313,7 +311,6 @@ public class AnimatorModel extends Object {
 					transform.setAttribute("y", String.valueOf(mVal[5]));
 					i++;
 				}
-
 			}
 
 			// write the content into xml file
@@ -323,9 +320,6 @@ public class AnimatorModel extends Object {
 			DOMSource source = new DOMSource(doc);
 			StreamResult result = new StreamResult(new File(
 					"../xml-files/file.xml"));
-
-			// Output to console for testing
-			// StreamResult result = new StreamResult(System.out);
 
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty(
@@ -343,10 +337,10 @@ public class AnimatorModel extends Object {
 		}
 	}
 
-	public void loadAnimation() {
+	public void loadAnimation(String filename) {
 		Log.w(Environment.getExternalStorageDirectory().toString(), "hi");
 		File file = new File(Environment.getExternalStorageDirectory()
-				+ File.separator + "file3.xml");
+				+ File.separator + filename);
 		if (!file.exists()) {
 			Log.w("File aint there", "fml");
 			file.mkdirs();
@@ -441,19 +435,4 @@ public class AnimatorModel extends Object {
 		currframe = 0;
 		// this.updateAllViews();
 	}
-
-	// public void addView(IView view) {
-	// views.add(view);
-	// view.updateView();
-	// }
-	//
-	// public void removeView(IView view) {
-	// views.remove(view);
-	// }
-	//
-	// private void updateAllViews() {
-	// for (IView view : this.views) {
-	// view.updateView();
-	// }
-	// }
 }

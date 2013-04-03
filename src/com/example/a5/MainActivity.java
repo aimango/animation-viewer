@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.a5.AnimatorModel.State;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,93 +19,127 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends Activity {
 	private AnimatorModel model;
 	private Timer t;
 	private int fps = 40;
-	private Canvas canvas;
-
-	//int temp;
+	private SeekBar slider;
+	private MyView myView;
+	private boolean fileExplore = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		canvas = new Canvas();
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
 
-		final RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
-		final MyView myView = new MyView(this);
+		RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
+		myView = new MyView(this);
 		v.addView(myView);
-		
-		
-        final Button button = (Button) findViewById(R.id.play);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	model.setState(AnimatorModel.State.playing);
-            	myView.invalidate();
-            	myView.draw(canvas);
-            }
-        });
-        
-        final Button stopbutton = (Button) findViewById(R.id.stop);
-        stopbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	model.setState(AnimatorModel.State.draw);
-            }
-        });
-       
-        final Button fwdbtn = (Button) findViewById(R.id.fwd);
-        fwdbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	model.increaseFrames(false);
-            	myView.invalidate();
-            	myView.draw(canvas);
-            }
-        });
-        
-        final Button backbtn = (Button) findViewById(R.id.back);
-        backbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	model.decreaseFrames();
-            	myView.invalidate(); 
-            	myView.draw(canvas);
-            }
-        });
-        
 
 		// this will run when timer elapses
 		TimerTask myTimerTask = new TimerTask() {
-
 			@Override
 			public void run() {
-
 				if (model.getState() == AnimatorModel.State.playing) {
-					
-					model.increaseFrames(false);
-					
-					myView.draw(canvas);
-					Log.w("Timer is at", String.valueOf(model.getFrame()));
-					//temp++;
+					if (model.getFrame() == model.getTotalFrames()) {
+						model.setState(AnimatorModel.State.draw);
+					} else {
+						model.increaseFrames(false);
+						slider.setProgress(model.getFrame());
+						myView.postInvalidate();
+						// Log.w("Timer is at",
+						// String.valueOf(model.getFrame()));
+					}
 				}
- 
 			}
-
 		};
-
 		// new timer
 		t = new Timer();
-		
 		// schedule timer
-		t.scheduleAtFixedRate(myTimerTask, 0, 1000/fps);
+		t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
 
+		final Button play = (Button) findViewById(R.id.play);
+		play.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// Perform action on click
+				if (slider.getProgress() >= model.getTotalFrames()) {
+					model.gotoZero();
+					slider.setProgress(model.getFrame());
+				}
+				model.setState(AnimatorModel.State.playing);
+			}
+		});
 
+		final Button stopbutton = (Button) findViewById(R.id.stop);
+		stopbutton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				model.setState(AnimatorModel.State.draw);
+			}
+		});
 
+		final Button fwdbtn = (Button) findViewById(R.id.fwd);
+		fwdbtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				model.increaseFrames(false);
+				slider.setProgress(model.getFrame());
+				myView.invalidate();
+			}
+		});
+
+		final Button backbtn = (Button) findViewById(R.id.back);
+		backbtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				model.decreaseFrames();
+				slider.setProgress(model.getFrame());
+				myView.invalidate();
+			}
+		});
+
+		final Button loadButton = (Button) findViewById(R.id.load);
+		loadButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent myIntent = new Intent(MainActivity.this,
+						FileExplorer.class);
+				MainActivity.this.startActivity(myIntent);
+				fileExplore = true;
+			}
+		});
+
+		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				model.setFrame(progress);
+				myView.invalidate();
+			}
+
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+			}
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+			}
+		});
+	}
+
+	@Override
+	public void onResume() {
+		if (fileExplore) {
+
+			SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+			String name = settings.getString("filename", "ohno");
+			Log.w("yay",name);
+			model.loadAnimation(name);
+			slider.setMax(model.getTotalFrames());
+			fileExplore = false;
+		}
+		super.onResume();
 	}
 
 	@Override
@@ -118,7 +152,6 @@ public class MainActivity extends Activity {
 	public class MyView extends View {
 		public MyView(Context context) {
 			super(context);
-			model.loadAnimation();
 		}
 
 		@Override
@@ -133,7 +166,6 @@ public class MainActivity extends Activity {
 					int size = s.size();
 
 					int currFrame = model.getFrame();
-					//Log.w("curr frame is ",String.valueOf(currFrame));
 					Path path = new Path();
 
 					// make sure # points is greater than 0 and that the segment
@@ -158,9 +190,7 @@ public class MainActivity extends Activity {
 					paint.setColor(Color.parseColor(s.getColor()));
 					paint.setStrokeWidth(stroke);
 					paint.setStyle(Paint.Style.STROKE);
-
 					canvas.drawPath(path, paint);
-
 					i++;
 				}
 			}

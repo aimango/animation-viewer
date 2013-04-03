@@ -55,4 +55,13 @@
     android1:layout_alignParentLeft="true"
     android1:layout_marginBottom="40dp" />
 
+<Button
+    android1:id="@+id/load"
+    android1:layout_width="wrap_content"
+    android1:layout_height="wrap_content"
+    android1:layout_alignBaseline="@+id/stop"
+    android1:layout_alignBottom="@+id/stop"
+    android1:layout_toRightOf="@+id/stop"
+    android1:text="Load" />
+
 </RelativeLayout>
