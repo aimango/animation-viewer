@@ -1,13 +1,58 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical" 
-android:id="@+id/linearLayout">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
 <TextView 
     android:id="@+id/Customfont"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/hello_world" />
 
+<Button
+    android:id="@+id/fwd"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/Customfont"
+    android:layout_marginRight="22dp"
+    android:text="Fwd" />
 
-</LinearLayout>
+<Button
+    android:id="@+id/play"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/fwd"
+    android:layout_alignBottom="@+id/fwd"
+    android:layout_marginRight="14dp"
+    android:layout_toLeftOf="@+id/fwd"
+    android:text="Play" />
+
+<Button
+    android:id="@+id/back"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/play"
+    android:layout_alignBottom="@+id/play"
+    android:layout_toLeftOf="@+id/play"
+    android:text="Back" />
+
+<Button
+    android:id="@+id/stop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/play"
+    android:layout_centerHorizontal="true"
+    android:text="Stop" />
+
+<SeekBar
+    android1:id="@+id/slider"
+    android1:layout_width="match_parent"
+    android1:layout_height="wrap_content"
+    android1:layout_alignParentBottom="true"
+    android1:layout_alignParentLeft="true"
+    android1:layout_marginBottom="40dp" />
+
+</RelativeLayout>

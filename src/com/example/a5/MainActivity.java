@@ -1,14 +1,10 @@
 package com.example.a5;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import com.example.a5.AnimatorModel.State;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,65 +12,100 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Path.Direction;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
-	/** Called when the activity is first created. */
+	private AnimatorModel model;
+	private Timer t;
+	private int fps = 40;
+	private Canvas canvas;
+
+	//int temp;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		canvas = new Canvas();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		model = new AnimatorModel();
 
-		LinearLayout v = (LinearLayout) findViewById(R.id.linearLayout);
-		MyView myView = new MyView(this);
+		final RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
+		final MyView myView = new MyView(this);
 		v.addView(myView);
 		
-		try {
-			File file = new File(Environment.DIRECTORY_DCIM + File.separator
-					+ "file.xml");
-			if (!file.exists()) {
-				Log.w("myApp", "sup");
-				file.mkdirs();
-			} else {
-				Log.w("yay", "yay");
+		
+        final Button button = (Button) findViewById(R.id.play);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	model.setState(AnimatorModel.State.playing);
+            	myView.invalidate();
+            	myView.draw(canvas);
+            }
+        });
+        
+        final Button stopbutton = (Button) findViewById(R.id.stop);
+        stopbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	model.setState(AnimatorModel.State.draw);
+            }
+        });
+       
+        final Button fwdbtn = (Button) findViewById(R.id.fwd);
+        fwdbtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	model.increaseFrames(false);
+            	myView.invalidate();
+            	myView.draw(canvas);
+            }
+        });
+        
+        final Button backbtn = (Button) findViewById(R.id.back);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+            	model.decreaseFrames();
+            	myView.invalidate(); 
+            	myView.draw(canvas);
+            }
+        });
+        
+
+		// this will run when timer elapses
+		TimerTask myTimerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+
+				if (model.getState() == AnimatorModel.State.playing) {
+					
+					model.increaseFrames(false);
+					
+					myView.draw(canvas);
+					Log.w("Timer is at", String.valueOf(model.getFrame()));
+					//temp++;
+				}
+ 
 			}
-							
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(file);
-			doc.getDocumentElement().normalize();
-			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			NodeList nodeLst = doc.getElementsByTagName("employee");
-			System.out.println("Information of all employees");
-			
-			for (int s = 0; s < nodeLst.getLength(); s++) {
-			
-				Node fstNode = nodeLst.item(s);
-			    
-			    if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-			  
-			    	Element fstElmnt = (Element) fstNode;
-			    	NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("firstname");
-					Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-					NodeList fstNm = fstNmElmnt.getChildNodes();
-					System.out.println("First Name : "  + ((Node) fstNm.item(0)).getNodeValue());
-					NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("lastname");
-					Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-					NodeList lstNm = lstNmElmnt.getChildNodes();
-					System.out.println("Last Name : " + ((Node) lstNm.item(0)).getNodeValue());
-			    }
-			
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}  
+
+		};
+
+		// new timer
+		t = new Timer();
+		
+		// schedule timer
+		t.scheduleAtFixedRate(myTimerTask, 0, 1000/fps);
+
+
+
 	}
 
 	@Override
@@ -85,39 +116,54 @@ public class MainActivity extends Activity {
 	}
 
 	public class MyView extends View {
-
-		class Pt {
-			float x, y;
-
-			Pt(float _x, float _y) {
-				x = _x;
-				y = _y;
-			}
-		}
-
-		Pt[] myPath = { new Pt(100, 100), new Pt(200, 200), new Pt(200, 500),
-				new Pt(400, 500), new Pt(400, 200) };
-
 		public MyView(Context context) {
 			super(context);
-			// TODO Auto-generated constructor stub
+			model.loadAnimation();
 		}
 
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
-			Paint paint = new Paint();
-			paint.setColor(Color.BLACK);
-			paint.setStrokeWidth(3);
-			paint.setStyle(Paint.Style.STROKE);
-			Path path = new Path();
-			path.moveTo(myPath[0].x, myPath[0].y);
+			// ZEE SEGMENTS
+			ArrayList<Segment> segments = model.getSegments();
+			if (segments.size() > 0) {
+				int i = 0;
+				for (Segment s : segments) {
+					int size = s.size();
 
-			for (int i = 1; i < myPath.length; i++) {
-				path.lineTo(myPath[i].x, myPath[i].y);
+					int currFrame = model.getFrame();
+					//Log.w("curr frame is ",String.valueOf(currFrame));
+					Path path = new Path();
+
+					// make sure # points is greater than 0 and that the segment
+					// is spse to be visible in the current frame
+					ArrayList<Point> transformedPoints = s
+							.getTranslates(currFrame);
+					if (transformedPoints.size() > 0) {
+						Point first = transformedPoints.get(0);
+						path.moveTo(first.x, first.y);
+
+						for (int j = 1; j < s.size(); j++) {
+							Point to = transformedPoints.get(j);
+							path.lineTo(to.x, to.y);
+						}
+						if (transformedPoints.size() == 1) {
+							path.lineTo(first.x, first.y);
+						}
+					}
+
+					int stroke = s.getStroke();
+					Paint paint = new Paint();
+					paint.setColor(Color.parseColor(s.getColor()));
+					paint.setStrokeWidth(stroke);
+					paint.setStyle(Paint.Style.STROKE);
+
+					canvas.drawPath(path, paint);
+
+					i++;
+				}
 			}
-			canvas.drawPath(path, paint);
 		}
 	}
 }
