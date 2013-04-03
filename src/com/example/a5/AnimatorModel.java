@@ -23,7 +23,6 @@ import org.xml.sax.SAXException;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 
@@ -338,12 +337,11 @@ public class AnimatorModel extends Object {
 	}
 
 	public void loadAnimation(String filename) {
-		Log.w(Environment.getExternalStorageDirectory().toString(), "hi");
+		//Log.w(Environment.getExternalStorageDirectory().toString(), "hi");
 		File file = new File(Environment.getExternalStorageDirectory()
 				+ File.separator + filename);
 		if (!file.exists()) {
 			Log.w("File aint there", "fml");
-			file.mkdirs();
 		} else {
 			Log.w("File is there", "yay");
 		}

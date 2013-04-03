@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.graphics.Matrix;
 import android.graphics.Point;
-import android.util.Log;
 
 //object that holds all the information for 1 drawn line segment.
 public class Segment extends Object {
@@ -129,9 +128,9 @@ public class Segment extends Object {
 			dest.y = (int) (p.y+f[5]);
 			destination.add(dest);
 		}
-		for (Point p:destination){
-			Log.w("hi",String.valueOf(frame)+ " " +String.valueOf(p.x)+" "+String.valueOf(p.y));
-		}
+//		for (Point p:destination){
+//			Log.w("hi",String.valueOf(frame)+ " " +String.valueOf(p.x)+" "+String.valueOf(p.y));
+//		}
 		return destination;
 	}
 }

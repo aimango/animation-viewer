@@ -38,9 +38,14 @@ public class MainActivity extends Activity {
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
 
-		RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
+		RelativeLayout v = (RelativeLayout) findViewById(R.id.canvas);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.WRAP_CONTENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_BOTTOM, RelativeLayout.TRUE);
+
 		myView = new MyView(this);
-		v.addView(myView);
+		v.addView(myView, params);
 
 		// this will run when timer elapses
 		TimerTask myTimerTask = new TimerTask() {
@@ -53,18 +58,14 @@ public class MainActivity extends Activity {
 						model.increaseFrames(false);
 						slider.setProgress(model.getFrame());
 						myView.postInvalidate();
-						// Log.w("Timer is at",
-						// String.valueOf(model.getFrame()));
 					}
 				}
 			}
 		};
-		// new timer
 		t = new Timer();
-		// schedule timer
 		t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
 
-		final Button play = (Button) findViewById(R.id.play);
+		Button play = (Button) findViewById(R.id.play);
 		play.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// Perform action on click
@@ -76,14 +77,14 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final Button stopbutton = (Button) findViewById(R.id.stop);
+		Button stopbutton = (Button) findViewById(R.id.stop);
 		stopbutton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.setState(AnimatorModel.State.draw);
 			}
 		});
 
-		final Button fwdbtn = (Button) findViewById(R.id.fwd);
+		Button fwdbtn = (Button) findViewById(R.id.fwd);
 		fwdbtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.increaseFrames(false);
@@ -92,7 +93,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final Button backbtn = (Button) findViewById(R.id.back);
+		Button backbtn = (Button) findViewById(R.id.back);
 		backbtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.decreaseFrames();
@@ -101,7 +102,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		final Button loadButton = (Button) findViewById(R.id.load);
+		Button loadButton = (Button) findViewById(R.id.load);
 		loadButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent myIntent = new Intent(MainActivity.this,
@@ -131,10 +132,9 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		if (fileExplore) {
-
 			SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
 			String name = settings.getString("filename", "ohno");
-			Log.w("yay",name);
+			Log.w("yay", name);
 			model.loadAnimation(name);
 			slider.setMax(model.getTotalFrames());
 			fileExplore = false;
@@ -156,15 +156,11 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onDraw(Canvas canvas) {
-			// TODO Auto-generated method stub
 			super.onDraw(canvas);
-			// ZEE SEGMENTS
+			
 			ArrayList<Segment> segments = model.getSegments();
 			if (segments.size() > 0) {
-				int i = 0;
 				for (Segment s : segments) {
-					int size = s.size();
-
 					int currFrame = model.getFrame();
 					Path path = new Path();
 
@@ -191,7 +187,6 @@ public class MainActivity extends Activity {
 					paint.setStrokeWidth(stroke);
 					paint.setStyle(Paint.Style.STROKE);
 					canvas.drawPath(path, paint);
-					i++;
 				}
 			}
 		}
