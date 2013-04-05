@@ -1,4 +1,4 @@
-package com.example.a5;
+package com.elisa.a5;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +48,6 @@ public class FileExplorer extends ListActivity {
 				int j = file.getName().lastIndexOf('.');
 				if (j > 0) {
 					String extension = file.getName().substring(j + 1);
-					// Log.w("supp",file.getName().substring(j+1));
 					if (extension.equals("xml")){
 						path.add(file.getPath());
 						item.add(file.getName());
@@ -75,22 +74,6 @@ public class FileExplorer extends ListActivity {
 		// Commit the edits!
 		editor.commit();
 
-		//File file = new File(path.get(position));
-		// if (!file.isDirectory()) {
-		// new AlertDialog.Builder(this).setIcon(R.drawable.ic_launcher)
-		//
-		// .setTitle("[" + file.getName() + "]")
-		//
-		// .setPositiveButton("OK",
-		//
-		// new DialogInterface.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(DialogInterface dialog, int which) {
-		// // TODO Auto-generated method stub
-		// }
-		// }).show();
-		// }
 		finish();
 	}
 }

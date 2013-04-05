@@ -1,4 +1,4 @@
-package com.example.a5;
+package com.elisa.a5;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -14,6 +14,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,15 +25,14 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private AnimatorModel model;
 	private Timer t;
-	private int fps = 40;
 	private SeekBar slider;
 	private MyView myView;
-	private boolean fileExplore = false;
+	private boolean fileExplore = false, settings = false;
+	private TimerTask myTimerTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,42 +41,19 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
+		t = new Timer();
 
-		RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
+		RelativeLayout v = (RelativeLayout) findViewById(R.id.mainLayout);
+
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.BELOW, R.id.back);
 		params.addRule(RelativeLayout.ABOVE, R.id.slider);
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-		// p.addRule(RelativeLayout.BELOW, R.id.below_id);
-		//
-		// android1:layout_width="wrap_content"
-		// android1:layout_height="wrap_content"
-		// android1:layout_above="@+id/slider"
-		// android1:layout_alignParentLeft="true"
-		// android1:layout_below="@+id/load"
-		//
+
 		myView = new MyView(this);
 		v.addView(myView, params);
-
-		// this will run when timer elapses
-		TimerTask myTimerTask = new TimerTask() {
-			@Override
-			public void run() {
-				if (model.getState() == AnimatorModel.State.playing) {
-					if (model.getFrame() == model.getTotalFrames()) {
-						model.setState(AnimatorModel.State.draw);
-					} else {
-						model.increaseFrames(false);
-						slider.setProgress(model.getFrame());
-						myView.postInvalidate();
-					}
-				}
-			}
-		};
-		t = new Timer();
-		t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
 
 		Button play = (Button) findViewById(R.id.play);
 		play.setOnClickListener(new View.OnClickListener() {
@@ -89,15 +67,15 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		Button stopbutton = (Button) findViewById(R.id.stop);
-		stopbutton.setOnClickListener(new View.OnClickListener() {
+		Button stopBtn = (Button) findViewById(R.id.stop);
+		stopBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.setState(AnimatorModel.State.draw);
 			}
 		});
 
-		Button fwdbtn = (Button) findViewById(R.id.fwd);
-		fwdbtn.setOnClickListener(new View.OnClickListener() {
+		Button fwdBtn = (Button) findViewById(R.id.fwd);
+		fwdBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.increaseFrames(false);
 				slider.setProgress(model.getFrame());
@@ -105,24 +83,14 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		Button backbtn = (Button) findViewById(R.id.back);
-		backbtn.setOnClickListener(new View.OnClickListener() {
+		Button backBtn = (Button) findViewById(R.id.back);
+		backBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				model.decreaseFrames();
 				slider.setProgress(model.getFrame());
 				myView.invalidate();
 			}
 		});
-
-		// Button loadButton = (Button) findViewById(R.id.load);
-		// loadButton.setOnClickListener(new View.OnClickListener() {
-		// public void onClick(View v) {
-		// Intent myIntent = new Intent(MainActivity.this,
-		// FileExplorer.class);
-		// MainActivity.this.startActivity(myIntent);
-		// fileExplore = true;
-		// }
-		// });
 
 		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
@@ -145,12 +113,38 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onResume() {
+
 		if (fileExplore) {
 			SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
 			String name = settings.getString("filename", "ohno");
 			Log.w("yay", name);
 			model.loadAnimation(name);
 			slider.setMax(model.getTotalFrames());
+
+		}
+		if (settings || fileExplore) {
+			Log.w("Sup", "Wayyy");
+			SharedPreferences sharedPrefs = PreferenceManager
+					.getDefaultSharedPreferences(MainActivity.this);
+			int fps = Integer.parseInt(sharedPrefs.getString("fps", "30"));
+			t = new Timer();
+			// this will run when timer elapses
+			myTimerTask = new TimerTask() {
+				@Override
+				public void run() {
+					if (model.getState() == AnimatorModel.State.playing) {
+						if (model.getFrame() == model.getTotalFrames()) {
+							model.setState(AnimatorModel.State.draw);
+						} else {
+							model.increaseFrames(false);
+							slider.setProgress(model.getFrame());
+							myView.postInvalidate();
+						}
+					}
+				}
+			};
+			t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
+			settings = false;
 			fileExplore = false;
 		}
 		super.onResume();
@@ -159,7 +153,7 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.layout.menu, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -169,13 +163,17 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_load:
 			Intent myIntent = new Intent(MainActivity.this, FileExplorer.class);
+			t.cancel();
 			MainActivity.this.startActivity(myIntent);
 			fileExplore = true;
+
 			return true;
 
 		case R.id.menu_settings:
-			Toast.makeText(MainActivity.this, "Save is Selected",
-					Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(this, SettingsActivity.class);
+			t.cancel();
+			MainActivity.this.startActivity(i);
+			settings = true;
 			return true;
 
 		default:
@@ -220,6 +218,24 @@ public class MainActivity extends Activity {
 					paint.setColor(Color.parseColor(s.getColor()));
 					paint.setStrokeWidth(stroke);
 					paint.setStyle(Paint.Style.STROKE);
+
+					SharedPreferences sharedPrefs = PreferenceManager
+							.getDefaultSharedPreferences(MainActivity.this);
+					String color = sharedPrefs.getString("colors", "white");
+					if (color == "white") {
+						color = "#FFFFFF";
+					} else if (color == "blue") {
+						color = "#33CCFF";
+					} else if (color == "red") {
+						color = "#FF3366";
+					} else if (color == "yellow") {
+						color = "#FFECB3";
+					} else if (color == "purple") {
+						color = "#CC99FF";
+					} else if (color == "black") {
+						color = "#000000";
+					}
+					this.setBackgroundColor(Color.parseColor(color));
 					canvas.drawPath(path, paint);
 				}
 			}

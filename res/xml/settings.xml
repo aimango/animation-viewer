@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Settings" >
+        <ListPreference
+            android:entries="@array/fps"
+            android:entryValues="@array/fps"
+            android:key="fps"
+            android:summary="Choose FPS rate for animation"
+            android:title="Set FPS"
+            android:defaultValue="30" />
+
+
+        <ListPreference
+            android:entries="@array/colors"
+            android:entryValues="@array/colors"
+            android:key="colors"
+            android:summary="Choose background color for animation"
+            android:title="Choose background color" 
+            android:defaultValue="white"/>
+        <ListPreference>
+        </ListPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
