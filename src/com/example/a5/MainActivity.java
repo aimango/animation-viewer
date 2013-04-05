@@ -16,12 +16,14 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private AnimatorModel model;
@@ -39,12 +41,21 @@ public class MainActivity extends Activity {
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
 
-		RelativeLayout v = (RelativeLayout) findViewById(R.id.canvas);
+		RelativeLayout v = (RelativeLayout) findViewById(R.id.linearLayout);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.ALIGN_BOTTOM, RelativeLayout.TRUE);
-
+		params.addRule(RelativeLayout.BELOW, R.id.back);
+		params.addRule(RelativeLayout.ABOVE, R.id.slider);
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+		// p.addRule(RelativeLayout.BELOW, R.id.below_id);
+		//
+		// android1:layout_width="wrap_content"
+		// android1:layout_height="wrap_content"
+		// android1:layout_above="@+id/slider"
+		// android1:layout_alignParentLeft="true"
+		// android1:layout_below="@+id/load"
+		//
 		myView = new MyView(this);
 		v.addView(myView, params);
 
@@ -103,15 +114,15 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		Button loadButton = (Button) findViewById(R.id.load);
-		loadButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent myIntent = new Intent(MainActivity.this,
-						FileExplorer.class);
-				MainActivity.this.startActivity(myIntent);
-				fileExplore = true;
-			}
-		});
+		// Button loadButton = (Button) findViewById(R.id.load);
+		// loadButton.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		// Intent myIntent = new Intent(MainActivity.this,
+		// FileExplorer.class);
+		// MainActivity.this.startActivity(myIntent);
+		// fileExplore = true;
+		// }
+		// });
 
 		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
@@ -148,8 +159,28 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.layout.menu, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_load:
+			Intent myIntent = new Intent(MainActivity.this, FileExplorer.class);
+			MainActivity.this.startActivity(myIntent);
+			fileExplore = true;
+			return true;
+
+		case R.id.menu_settings:
+			Toast.makeText(MainActivity.this, "Save is Selected",
+					Toast.LENGTH_SHORT).show();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public class MyView extends View {
@@ -160,7 +191,7 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
-			
+
 			ArrayList<Segment> segments = model.getSegments();
 			if (segments.size() > 0) {
 				for (Segment s : segments) {
