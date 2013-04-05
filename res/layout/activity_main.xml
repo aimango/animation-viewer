@@ -13,39 +13,14 @@
         android:layout_centerHorizontal="true"
         android:text="load" />
 
-    <SeekBar
-        android1:id="@+id/slider"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:layout_alignParentBottom="true"
-        android1:layout_alignParentLeft="true"
-        android1:layout_marginBottom="40dp" />
-
     <RelativeLayout
         android:id="@+id/canvas"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_above="@+id/slider"
-        android1:layout_alignParentLeft="true"
-        android1:layout_marginTop="100dp"
-        android1:layout_marginLeft="100dp" >
+        android1:layout_alignLeft="@+id/timeLbl"
+        android1:layout_marginTop="100dp" >
     </RelativeLayout>
-
-    <Button
-        android1:id="@+id/back"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_above="@+id/stop"
-        android1:layout_toLeftOf="@+id/stop"
-        android1:text="Back" />
-
-    <Button
-        android1:id="@+id/back"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_above="@+id/back"
-        android1:layout_toLeftOf="@+id/stop"
-        android1:text="Back" />
 
     <Button
         android1:id="@+id/play"
@@ -55,20 +30,48 @@
         android1:layout_toLeftOf="@+id/back"
         android1:text="Play" />
 
-    <Button
-        android1:id="@+id/fwd"
+
+
+
+    <SeekBar
+        android1:id="@+id/slider"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:layout_alignParentBottom="true"
+        android1:layout_alignParentLeft="true"
+        android1:layout_marginBottom="38dp" />
+
+    <TextView
+        android1:id="@+id/timeLbl"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
-        android1:layout_above="@+id/stop"
-        android1:layout_toRightOf="@+id/back"
-        android1:text="Fwd" />
+        android1:layout_alignParentBottom="true"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginBottom="16dp"
+        android1:text="Current Time: 0" />
+
+    <Button
+        android1:id="@+id/back"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_alignLeft="@+id/canvas"
+        android1:layout_alignParentTop="true"
+        android1:text="Back" />
 
     <Button
         android1:id="@+id/stop"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
+        android1:layout_alignParentRight="true"
+        android1:layout_alignParentTop="true"
+        android1:text="stop" />
+
+    <Button
+        android1:id="@+id/fwd"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
         android1:layout_above="@+id/load"
         android1:layout_toRightOf="@+id/load"
-        android1:text="stop" />
+        android1:text="Fwd" />
 
 </RelativeLayout>

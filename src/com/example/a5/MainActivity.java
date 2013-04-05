@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	private AnimatorModel model;
@@ -116,6 +117,8 @@ public class MainActivity extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				model.setFrame(progress);
+				TextView lbl = (TextView) findViewById(R.id.timeLbl);
+				lbl.setText("Current Frame:" + progress);
 				myView.invalidate();
 			}
 
