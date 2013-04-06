@@ -20,7 +20,7 @@ import android.graphics.Point;
 import android.os.Environment;
 import android.util.Log;
 
-//TODO: check for right file format
+//TODO: check for right file format?
 public class AnimatorModel extends Object {
 	public enum State {
 		draw, playing
@@ -193,10 +193,8 @@ public class AnimatorModel extends Object {
 				segs.add(suu);
 			}
 		}
-
 		this.setSegments(segs);
 		this.setTotalFrames(maxFrame);
-
 	}
 
 }

@@ -37,7 +37,7 @@ public class FileExplorer extends ListActivity {
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
 
-			if (!file.isDirectory()) {
+			if (!file.isDirectory()) { // only look at files
 				int j = file.getName().lastIndexOf('.');
 				if (j > 0) {
 					String extension = file.getName().substring(j + 1);
@@ -63,8 +63,6 @@ public class FileExplorer extends ListActivity {
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("filename", s);
 		editor.putString("fileexplore", "yes");
-
-		// Commit the edits!
 		editor.commit();
 		finish();
 	}

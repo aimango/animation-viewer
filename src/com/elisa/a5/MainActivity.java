@@ -54,9 +54,30 @@ public class MainActivity extends Activity {
 		myView = new MyView(this);
 		v.addView(myView, params);
 
-		Button play = (Button) findViewById(R.id.play);
-		play.setOnClickListener(new View.OnClickListener() {
+
+		final Button fwdBtn = (Button) findViewById(R.id.fwd);
+		fwdBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				model.increaseFrames(false);
+				slider.setProgress(model.getFrame());
+				myView.invalidate();
+			}
+		});
+
+		final Button backBtn = (Button) findViewById(R.id.back);
+		backBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				model.decreaseFrames();
+				slider.setProgress(model.getFrame());
+				myView.invalidate();
+			}
+		});
+		
+		Button playBtn = (Button) findViewById(R.id.play);
+		playBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				backBtn.setEnabled(false);
+				fwdBtn.setEnabled(false);
 				// Perform action on click
 				if (slider.getProgress() >= model.getTotalFrames()) {
 					model.gotoZero();
@@ -69,27 +90,12 @@ public class MainActivity extends Activity {
 		Button stopBtn = (Button) findViewById(R.id.stop);
 		stopBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				backBtn.setEnabled(true);
+				fwdBtn.setEnabled(true);
 				model.setState(AnimatorModel.State.draw);
 			}
 		});
 
-		Button fwdBtn = (Button) findViewById(R.id.fwd);
-		fwdBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				model.increaseFrames(false);
-				slider.setProgress(model.getFrame());
-				myView.invalidate();
-			}
-		});
-
-		Button backBtn = (Button) findViewById(R.id.back);
-		backBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				model.decreaseFrames();
-				slider.setProgress(model.getFrame());
-				myView.invalidate();
-			}
-		});
 
 		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
@@ -130,7 +136,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					if (model.getState() == AnimatorModel.State.playing) {
-						if (model.getFrame() == model.getTotalFrames()) {
+						if (model.getFrame() >= model.getTotalFrames()) {
 							model.setState(AnimatorModel.State.draw);
 						} else {
 							model.increaseFrames(false);
@@ -146,7 +152,6 @@ public class MainActivity extends Activity {
 			editor.putString("fileexplore", "no");
 			editor.commit();
 		}
-
 		super.onResume();
 	}
 
