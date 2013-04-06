@@ -7,7 +7,7 @@
         <item name="2">yellow</item>
         <item name="3">red</item>
         <item name="4">blue</item>
-        
+        <item name="5">purple</item>
     </string-array>
     <string-array name="fps">
         <item name="20">20</item>

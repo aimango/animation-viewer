@@ -14,7 +14,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -117,13 +116,10 @@ public class MainActivity extends Activity {
 		if (fileExplore) {
 			SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
 			String name = settings.getString("filename", "ohno");
-			Log.w("yay", name);
 			model.loadAnimation(name);
 			slider.setMax(model.getTotalFrames());
-
 		}
 		if (settings || fileExplore) {
-			Log.w("Sup", "Wayyy");
 			SharedPreferences sharedPrefs = PreferenceManager
 					.getDefaultSharedPreferences(MainActivity.this);
 			int fps = Integer.parseInt(sharedPrefs.getString("fps", "30"));
@@ -222,18 +218,20 @@ public class MainActivity extends Activity {
 					SharedPreferences sharedPrefs = PreferenceManager
 							.getDefaultSharedPreferences(MainActivity.this);
 					String color = sharedPrefs.getString("colors", "white");
-					if (color == "white") {
+					if (color.equals("white")) {
 						color = "#FFFFFF";
-					} else if (color == "blue") {
-						color = "#33CCFF";
-					} else if (color == "red") {
+					} else if (color.equals("blue")) {
+						color = "#99CCFF";
+					} else if (color.equals("red")) {
 						color = "#FF3366";
-					} else if (color == "yellow") {
+					} else if (color.equals("yellow")) {
 						color = "#FFECB3";
-					} else if (color == "purple") {
+					} else if (color.equals("purple")) {
 						color = "#CC99FF";
-					} else if (color == "black") {
+					} else if (color.equals("black")) {
 						color = "#000000";
+					} else {
+						Log.w("Other color", color);
 					}
 					this.setBackgroundColor(Color.parseColor(color));
 					canvas.drawPath(path, paint);
