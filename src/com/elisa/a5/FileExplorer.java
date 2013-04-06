@@ -34,28 +34,20 @@ public class FileExplorer extends ListActivity {
 		File f = new File(dirPath);
 		File[] files = f.listFiles();
 
-//		if (!dirPath.equals(root)) {
-//			item.add(root);
-//			path.add(root);
-//			item.add("../");
-//			path.add(f.getParent());
-//		}
-
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
-			
+
 			if (!file.isDirectory()) {
 				int j = file.getName().lastIndexOf('.');
 				if (j > 0) {
 					String extension = file.getName().substring(j + 1);
-					if (extension.equals("xml")){
+					if (extension.equals("xml")) {
 						path.add(file.getPath());
 						item.add(file.getName());
 					}
 				}
 			}
 		}
-
 		ArrayAdapter<String> fileList = new ArrayAdapter<String>(this,
 				R.layout.row, item);
 		setListAdapter(fileList);
@@ -70,10 +62,10 @@ public class FileExplorer extends ListActivity {
 		SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putString("filename", s);
+		editor.putString("fileexplore", "yes");
 
 		// Commit the edits!
 		editor.commit();
-
 		finish();
 	}
 }

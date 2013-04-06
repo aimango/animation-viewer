@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	private Timer t;
 	private SeekBar slider;
 	private MyView myView;
-	private boolean fileExplore = false, settings = false;
+	private boolean settings = false;
 	private TimerTask myTimerTask;
 
 	@Override
@@ -101,25 +101,26 @@ public class MainActivity extends Activity {
 			}
 
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
 			}
 
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
 			}
 		});
 	}
 
 	@Override
 	public void onResume() {
-
-		if (fileExplore) {
-			SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
-			String name = settings.getString("filename", "ohno");
+		myView.invalidate();
+		SharedPreferences prefs = getSharedPreferences("MyPrefsFile", 0);
+		String fileExplore = prefs.getString("fileexplore", "no");
+		if (fileExplore.equals("yes")) {
+			String name = prefs.getString("filename", "ohno");
 			model.loadAnimation(name);
 			slider.setMax(model.getTotalFrames());
+			model.gotoZero();
+			slider.setProgress(model.getFrame());
 		}
-		if (settings || fileExplore) {
+		if (settings || fileExplore.equals("yes")) {
 			SharedPreferences sharedPrefs = PreferenceManager
 					.getDefaultSharedPreferences(MainActivity.this);
 			int fps = Integer.parseInt(sharedPrefs.getString("fps", "30"));
@@ -141,8 +142,11 @@ public class MainActivity extends Activity {
 			};
 			t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
 			settings = false;
-			fileExplore = false;
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putString("fileexplore", "no");
+			editor.commit();
 		}
+
 		super.onResume();
 	}
 
@@ -161,7 +165,6 @@ public class MainActivity extends Activity {
 			Intent myIntent = new Intent(MainActivity.this, FileExplorer.class);
 			t.cancel();
 			MainActivity.this.startActivity(myIntent);
-			fileExplore = true;
 
 			return true;
 

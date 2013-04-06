@@ -20,6 +20,7 @@ import android.graphics.Point;
 import android.os.Environment;
 import android.util.Log;
 
+//TODO: check for right file format
 public class AnimatorModel extends Object {
 	public enum State {
 		draw, playing
@@ -31,10 +32,15 @@ public class AnimatorModel extends Object {
 
 	private String paletteColor = String.valueOf(Color.BLACK);
 	private int strokeSize = 5;
+	private String currFile = "";
 
 	private ArrayList<Segment> segments = new ArrayList<Segment>();
 
 	public AnimatorModel() {
+	}
+
+	public String getCurrFile() {
+		return currFile;
 	}
 
 	public void setSegments(ArrayList<Segment> segs) {
@@ -105,6 +111,7 @@ public class AnimatorModel extends Object {
 	}
 
 	public void loadAnimation(String filename) {
+
 		// Log.w(Environment.getExternalStorageDirectory().toString(), "hi");
 		File file = new File(Environment.getExternalStorageDirectory()
 				+ File.separator + filename);
@@ -112,6 +119,7 @@ public class AnimatorModel extends Object {
 			Log.w("Cannot find file", filename);
 			return;
 		} else {
+			currFile = filename;
 			Log.w("Opening file", filename);
 		}
 
@@ -120,17 +128,14 @@ public class AnimatorModel extends Object {
 		try {
 			db = dbf.newDocumentBuilder();
 		} catch (ParserConfigurationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		Document docc = null;
 		try {
 			docc = db.parse(file);
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		docc.getDocumentElement().normalize();
@@ -188,8 +193,10 @@ public class AnimatorModel extends Object {
 				segs.add(suu);
 			}
 		}
+
 		this.setSegments(segs);
 		this.setTotalFrames(maxFrame);
+
 	}
 
 }
