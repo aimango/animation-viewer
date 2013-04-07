@@ -1,4 +1,4 @@
-package com.elisa.a5;
+package com.elisa.a5.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -111,16 +111,14 @@ public class AnimatorModel extends Object {
 	}
 
 	public void loadAnimation(String filename) {
-
-		// Log.w(Environment.getExternalStorageDirectory().toString(), "hi");
 		File file = new File(Environment.getExternalStorageDirectory()
 				+ File.separator + filename);
 		if (!file.exists()) {
-			Log.w("Cannot find file", filename);
+			Log.e("Cannot find file", filename);
 			return;
 		} else {
 			currFile = filename;
-			Log.w("Opening file", filename);
+			Log.i("Opening file", filename);
 		}
 
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -139,9 +137,6 @@ public class AnimatorModel extends Object {
 			e.printStackTrace();
 		}
 		docc.getDocumentElement().normalize();
-		System.out.println("Root element "
-				+ docc.getDocumentElement().getNodeName());
-
 		int maxFrame = 0;
 		NodeList nodeLst = docc.getElementsByTagName("segment");
 		ArrayList<Segment> segs = new ArrayList<Segment>();
@@ -195,6 +190,7 @@ public class AnimatorModel extends Object {
 		}
 		this.setSegments(segs);
 		this.setTotalFrames(maxFrame);
+		Log.i("Successfully imported file", filename);
 	}
 
 }

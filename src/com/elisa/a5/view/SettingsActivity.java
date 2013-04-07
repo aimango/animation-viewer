@@ -1,7 +1,9 @@
-package com.elisa.a5;
+package com.elisa.a5.view;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.elisa.a5.R;
 
 public class SettingsActivity extends PreferenceActivity {
 

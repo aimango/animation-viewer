@@ -1,4 +1,4 @@
-package com.elisa.a5;
+package com.elisa.a5.view;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -24,6 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import com.elisa.a5.R;
+import com.elisa.a5.model.AnimatorModel;
+import com.elisa.a5.model.Segment;
 
 public class MainActivity extends Activity {
 	private AnimatorModel model;
@@ -54,7 +58,6 @@ public class MainActivity extends Activity {
 		myView = new MyView(this);
 		v.addView(myView, params);
 
-
 		final Button fwdBtn = (Button) findViewById(R.id.fwd);
 		fwdBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -72,13 +75,12 @@ public class MainActivity extends Activity {
 				myView.invalidate();
 			}
 		});
-		
+
 		Button playBtn = (Button) findViewById(R.id.play);
 		playBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				backBtn.setEnabled(false);
 				fwdBtn.setEnabled(false);
-				// Perform action on click
 				if (slider.getProgress() >= model.getTotalFrames()) {
 					model.gotoZero();
 					slider.setProgress(model.getFrame());
@@ -95,7 +97,6 @@ public class MainActivity extends Activity {
 				model.setState(AnimatorModel.State.draw);
 			}
 		});
-
 
 		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
@@ -190,10 +191,42 @@ public class MainActivity extends Activity {
 			super(context);
 		}
 
+		private String convertColor(String color) {
+			if (color.equals("white")) {
+				return "#FFFFFF";
+			} else if (color.equals("light blue")) {
+				return "#99CCFF";
+			} else if (color.equals("red")) {
+				return "#CC0000";
+			} else if (color.equals("yellow")) {
+				return "#FFECB3";
+			} else if (color.equals("purple")) {
+				return "#CC99FF";
+			} else if (color.equals("black")) {
+				return "#000000";
+			} else if (color.equals("grey")) {
+				return "#7D7D7D";
+			} else if (color.equals("light green")) {
+				return "#47FF47";
+			} else if (color.equals("dark green")) {
+				return "#008040";
+			} else if (color.equals("dark blue")) {
+				return "#0059B3";
+			} else if (color.equals("orange")) {
+				return "#FF9900";
+			} else if (color.equals("pink")) {
+				return "#FF66CC";
+			}
+			Log.w("Other color, default to white", color);
+			return "#FFFFFF";
+		}
+
 		@Override
 		protected void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
-
+			@SuppressWarnings("deprecation")
+			int width = getWindowManager().getDefaultDisplay().getWidth();
+			
 			ArrayList<Segment> segments = model.getSegments();
 			if (segments.size() > 0) {
 				for (Segment s : segments) {
@@ -206,14 +239,14 @@ public class MainActivity extends Activity {
 							.getTranslates(currFrame);
 					if (transformedPoints.size() > 0) {
 						Point first = transformedPoints.get(0);
-						path.moveTo(first.x, first.y);
+						path.moveTo(first.x*width/720, first.y*width/720);
 
 						for (int j = 1; j < s.size(); j++) {
 							Point to = transformedPoints.get(j);
-							path.lineTo(to.x, to.y);
+							path.lineTo(to.x*width/720, to.y*width/720);
 						}
 						if (transformedPoints.size() == 1) {
-							path.lineTo(first.x, first.y);
+							path.lineTo(first.x*width/720, first.y*width/720);
 						}
 					}
 
@@ -226,21 +259,7 @@ public class MainActivity extends Activity {
 					SharedPreferences sharedPrefs = PreferenceManager
 							.getDefaultSharedPreferences(MainActivity.this);
 					String color = sharedPrefs.getString("colors", "white");
-					if (color.equals("white")) {
-						color = "#FFFFFF";
-					} else if (color.equals("blue")) {
-						color = "#99CCFF";
-					} else if (color.equals("red")) {
-						color = "#FF3366";
-					} else if (color.equals("yellow")) {
-						color = "#FFECB3";
-					} else if (color.equals("purple")) {
-						color = "#CC99FF";
-					} else if (color.equals("black")) {
-						color = "#000000";
-					} else {
-						Log.w("Other color", color);
-					}
+					color = convertColor(color);
 					this.setBackgroundColor(Color.parseColor(color));
 					canvas.drawPath(path, paint);
 				}

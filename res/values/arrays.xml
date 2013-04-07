@@ -6,10 +6,17 @@
         <item name="1">black</item>
         <item name="2">yellow</item>
         <item name="3">red</item>
-        <item name="4">blue</item>
-        <item name="5">purple</item>
+        <item name="4">dark blue</item>
+        <item name="5">light blue</item>
+        <item name="6">dark green</item>
+        <item name="7">light green</item>
+        <item name="8">pink</item>
+        <item name="9">orange</item>
+        <item name="10">purple</item>
+        <item name="11">grey</item>
     </string-array>
     <string-array name="fps">
+        <item name="10">10</item>
         <item name="20">20</item>
         <item name="30">30</item>
         <item name="40">40</item>
