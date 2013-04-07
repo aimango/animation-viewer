@@ -168,7 +168,7 @@ public class MainActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.menu_load:
-			Intent myIntent = new Intent(MainActivity.this, FileExplorer.class);
+			Intent myIntent = new Intent(MainActivity.this, FileExplorerActivity.class);
 			t.cancel();
 			MainActivity.this.startActivity(myIntent);
 

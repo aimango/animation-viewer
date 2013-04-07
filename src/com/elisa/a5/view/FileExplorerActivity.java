@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.elisa.a5.R;
 
-public class FileExplorer extends ListActivity {
+public class FileExplorerActivity extends ListActivity {
 	private List<String> xmlFiles = null;
 	private List<String> paths = null;
 	private TextView myPath;
