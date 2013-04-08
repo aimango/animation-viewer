@@ -1,8 +1,5 @@
 package view;
 
-import gif.GifFrame;
-import gif.ImageUtil;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,13 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -237,65 +228,6 @@ public class CanvasView extends JComponent implements IView {
 				repaint();
 			}
 		});
-	}
-
-	
-	// Source: http://www.java-gaming.org/index.php?topic=24196.0
-	public void exportImageOld() {
-		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		List<GifFrame> gifFrames = new ArrayList<GifFrame>();
-		ImageUtil util = new ImageUtil();
-
-		int originalFrame = model.getFrame();
-		model.gotoZero();
-		Graphics2D cg;
-		BufferedImage b;
-		for (int i = 0; i < model.getTotalFrames(); i++) {
-			b = new BufferedImage(this.getWidth(), this.getHeight(),
-					BufferedImage.TYPE_BYTE_INDEXED);
-			cg = b.createGraphics();
-			this.paintAll(cg);
-			images.add(b);
-			model.increaseFrames(false);
-
-			// time for each frame
-			long delay = 50;
-
-			// add frame to sequence
-			gifFrames.add(new GifFrame(b, delay));
-			b.flush();
-			if (i%10==0){
-				System.out.print(".");
-			}
-		}
-
-		int loopCount = 0; // gif will loop indefinitely
-		OutputStream out = null;
-		String filepath = "./animation0";
-		try {
-			int i = 0;
-			while (true) {
-				File f = new File(filepath + ".gif");
-				if (f.exists()) {
-					filepath = filepath.substring(0, 11);
-					i++;
-					filepath = filepath + Integer.toString(i);
-					f = new File(filepath + ".gif");
-				} else {
-					break;
-				}
-			}
-			out = new FileOutputStream(filepath + ".gif");
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			util.saveAnimatedGIF(out, gifFrames, loopCount);
-			System.out.println("Exported as " + filepath.substring(2) + ".gif");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.setFrame(originalFrame);
 	}
 
 	public void clearScreen(Graphics g) {
