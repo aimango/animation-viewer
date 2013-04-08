@@ -21,7 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -52,19 +52,9 @@ public class MainActivity extends Activity {
 		model = new AnimatorModel();
 		t = new Timer();
 
-		RelativeLayout v = (RelativeLayout) findViewById(R.id.mainLayout);
+		LinearLayout v = (LinearLayout) findViewById(R.id.canvasArea);
 		myView = new MyView(this);
-
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.BELOW, R.id.back);
-		params.addRule(RelativeLayout.ABOVE, R.id.slider);
-		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-
-		// add custom view dynamically to this activity's outermost layout,
-		// with custom params
-		v.addView(myView, params);
+		v.addView(myView);
 		this.registerControllers();
 	}
 
@@ -112,7 +102,7 @@ public class MainActivity extends Activity {
 					playBtn.setText("Play");
 					setPlayback(true);
 					model.setState(AnimatorModel.State.draw);
-					
+
 				}
 			}
 		});
