@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<animation>
+  <segment color="#33FF66" end="146" start="0" stroke="5">
+    <point x="50.0" y="14.0"/>
+    <point x="49.0" y="14.0"/>
+    <point x="47.0" y="18.0"/>
+    <point x="45.0" y="23.0"/>
+    <point x="44.0" y="30.0"/>
+    <point x="41.0" y="39.0"/>
+    <point x="41.0" y="44.0"/>
+    <point x="41.0" y="49.0"/>
+    <point x="41.0" y="51.0"/>
+    <point x="41.0" y="52.0"/>
+    <point x="42.0" y="52.0"/>
+    <point x="45.0" y="52.0"/>
+    <point x="48.0" y="52.0"/>
+    <point x="50.0" y="52.0"/>
+    <point x="53.0" y="53.0"/>
+    <point x="54.0" y="57.0"/>
+    <point x="54.0" y="65.0"/>
+    <point x="54.0" y="75.0"/>
+    <point x="50.0" y="87.0"/>
+    <point x="46.0" y="98.0"/>
+    <point x="44.0" y="106.0"/>
+    <point x="43.0" y="114.0"/>
+    <point x="42.0" y="117.0"/>
+    <point x="42.0" y="119.0"/>
+    <point x="42.0" y="120.0"/>
+    <transform frame="1" x="0.0" y="0.0"/>
+    <transform frame="2" x="0.0" y="0.0"/>
+    <transform frame="3" x="0.0" y="0.0"/>
+    <transform frame="4" x="0.0" y="0.0"/>
+    <transform frame="5" x="0.0" y="0.0"/>
+    <transform frame="6" x="0.0" y="0.0"/>
+    <transform frame="7" x="0.0" y="0.0"/>
+    <transform frame="8" x="0.0" y="0.0"/>
+    <transform frame="9" x="0.0" y="0.0"/>
+    <transform frame="10" x="0.0" y="0.0"/>
+    <transform frame="11" x="0.0" y="0.0"/>
+    <transform frame="12" x="0.0" y="0.0"/>
+    <transform frame="13" x="0.0" y="0.0"/>
+    <transform frame="14" x="0.0" y="0.0"/>
+    <transform frame="15" x="0.0" y="0.0"/>
+    <transform frame="16" x="0.0" y="0.0"/>
+    <transform frame="17" x="0.0" y="0.0"/>
+    <transform frame="18" x="0.0" y="0.0"/>
+    <transform frame="19" x="0.0" y="0.0"/>
+    <transform frame="20" x="0.0" y="0.0"/>
+    <transform frame="21" x="1.0" y="1.0"/>
+    <transform frame="22" x="4.0" y="3.0"/>
+    <transform frame="23" x="4.0" y="3.0"/>
+    <transform frame="24" x="5.0" y="4.0"/>
+    <transform frame="25" x="6.0" y="5.0"/>
+    <transform frame="26" x="8.0" y="7.0"/>
+    <transform frame="27" x="9.0" y="8.0"/>
+    <transform frame="28" x="12.0" y="12.0"/>
+    <transform frame="29" x="13.0" y="13.0"/>
+    <transform frame="30" x="15.0" y="15.0"/>
+    <transform frame="31" x="16.0" y="16.0"/>
+    <transform frame="32" x="16.0" y="16.0"/>
+    <transform frame="33" x="17.0" y="17.0"/>
+    <transform frame="34" x="17.0" y="17.0"/>
+    <transform frame="35" x="17.0" y="17.0"/>
+    <transform frame="36" x="17.0" y="17.0"/>
+    <transform frame="37" x="17.0" y="17.0"/>
+    <transform frame="38" x="18.0" y="16.0"/>
+    <transform frame="39" x="19.0" y="15.0"/>
+    <transform frame="40" x="19.0" y="15.0"/>
+    <transform frame="41" x="20.0" y="14.0"/>
+    <transform frame="42" x="20.0" y="14.0"/>
+    <transform frame="43" x="20.0" y="14.0"/>
+    <transform frame="44" x="20.0" y="14.0"/>
+    <transform frame="45" x="23.0" y="15.0"/>
+    <transform frame="46" x="25.0" y="16.0"/>
+    <transform frame="47" x="26.0" y="17.0"/>
+    <transform frame="48" x="26.0" y="17.0"/>
+    <transform frame="49" x="27.0" y="18.0"/>
+    <transform frame="50" x="27.0" y="18.0"/>
+    <transform frame="51" x="27.0" y="18.0"/>
+    <transform frame="52" x="27.0" y="18.0"/>
+    <transform frame="53" x="27.0" y="18.0"/>
+    <transform frame="54" x="29.0" y="19.0"/>
+    <transform frame="55" x="30.0" y="20.0"/>
+    <transform frame="56" x="30.0" y="20.0"/>
+    <transform frame="57" x="32.0" y="21.0"/>
+    <transform frame="58" x="33.0" y="22.0"/>
+    <transform frame="59" x="35.0" y="23.0"/>
+    <transform frame="60" x="35.0" y="23.0"/>
+    <transform frame="61" x="36.0" y="24.0"/>
+    <transform frame="62" x="36.0" y="24.0"/>
+    <transform frame="63" x="36.0" y="24.0"/>
+    <transform frame="64" x="39.0" y="26.0"/>
+    <transform frame="65" x="39.0" y="26.0"/>
+    <transform frame="66" x="39.0" y="26.0"/>
+    <transform frame="67" x="43.0" y="27.0"/>
+    <transform frame="68" x="47.0" y="28.0"/>
+    <transform frame="69" x="47.0" y="28.0"/>
+    <transform frame="70" x="53.0" y="30.0"/>
+    <transform frame="71" x="53.0" y="30.0"/>
+    <transform frame="72" x="53.0" y="30.0"/>
+    <transform frame="73" x="53.0" y="30.0"/>
+    <transform frame="74" x="53.0" y="30.0"/>
+    <transform frame="75" x="53.0" y="30.0"/>
+    <transform frame="76" x="53.0" y="30.0"/>
+    <transform frame="77" x="53.0" y="30.0"/>
+    <transform frame="78" x="53.0" y="30.0"/>
+    <transform frame="79" x="53.0" y="30.0"/>
+    <transform frame="80" x="53.0" y="30.0"/>
+    <transform frame="81" x="53.0" y="30.0"/>
+    <transform frame="82" x="53.0" y="30.0"/>
+    <transform frame="83" x="53.0" y="30.0"/>
+    <transform frame="84" x="53.0" y="30.0"/>
+    <transform frame="85" x="53.0" y="30.0"/>
+    <transform frame="86" x="53.0" y="30.0"/>
+    <transform frame="87" x="53.0" y="30.0"/>
+    <transform frame="88" x="53.0" y="30.0"/>
+    <transform frame="89" x="53.0" y="30.0"/>
+    <transform frame="90" x="53.0" y="30.0"/>
+    <transform frame="91" x="53.0" y="30.0"/>
+    <transform frame="92" x="53.0" y="30.0"/>
+    <transform frame="93" x="53.0" y="30.0"/>
+    <transform frame="94" x="53.0" y="30.0"/>
+    <transform frame="95" x="53.0" y="30.0"/>
+    <transform frame="96" x="53.0" y="30.0"/>
+    <transform frame="97" x="53.0" y="30.0"/>
+    <transform frame="98" x="53.0" y="30.0"/>
+    <transform frame="99" x="53.0" y="30.0"/>
+    <transform frame="100" x="53.0" y="30.0"/>
+    <transform frame="101" x="53.0" y="30.0"/>
+    <transform frame="102" x="53.0" y="30.0"/>
+    <transform frame="103" x="53.0" y="30.0"/>
+    <transform frame="104" x="53.0" y="30.0"/>
+    <transform frame="105" x="53.0" y="30.0"/>
+    <transform frame="106" x="53.0" y="30.0"/>
+    <transform frame="107" x="53.0" y="30.0"/>
+    <transform frame="108" x="53.0" y="30.0"/>
+    <transform frame="109" x="53.0" y="30.0"/>
+    <transform frame="110" x="53.0" y="30.0"/>
+    <transform frame="111" x="53.0" y="30.0"/>
+    <transform frame="112" x="53.0" y="30.0"/>
+    <transform frame="113" x="53.0" y="30.0"/>
+    <transform frame="114" x="53.0" y="30.0"/>
+    <transform frame="115" x="53.0" y="30.0"/>
+    <transform frame="116" x="53.0" y="30.0"/>
+    <transform frame="117" x="53.0" y="30.0"/>
+    <transform frame="118" x="53.0" y="30.0"/>
+    <transform frame="119" x="53.0" y="30.0"/>
+    <transform frame="120" x="53.0" y="30.0"/>
+    <transform frame="121" x="53.0" y="30.0"/>
+    <transform frame="122" x="53.0" y="30.0"/>
+    <transform frame="123" x="53.0" y="30.0"/>
+    <transform frame="124" x="53.0" y="30.0"/>
+    <transform frame="125" x="53.0" y="30.0"/>
+    <transform frame="126" x="53.0" y="30.0"/>
+    <transform frame="127" x="53.0" y="30.0"/>
+    <transform frame="128" x="53.0" y="30.0"/>
+    <transform frame="129" x="53.0" y="30.0"/>
+    <transform frame="130" x="53.0" y="30.0"/>
+    <transform frame="131" x="53.0" y="30.0"/>
+    <transform frame="132" x="53.0" y="30.0"/>
+    <transform frame="133" x="53.0" y="30.0"/>
+    <transform frame="134" x="53.0" y="30.0"/>
+    <transform frame="135" x="53.0" y="30.0"/>
+    <transform frame="136" x="53.0" y="30.0"/>
+    <transform frame="137" x="53.0" y="30.0"/>
+    <transform frame="138" x="53.0" y="30.0"/>
+    <transform frame="139" x="53.0" y="30.0"/>
+    <transform frame="140" x="53.0" y="30.0"/>
+    <transform frame="141" x="53.0" y="30.0"/>
+    <transform frame="142" x="53.0" y="30.0"/>
+    <transform frame="143" x="53.0" y="30.0"/>
+    <transform frame="144" x="53.0" y="30.0"/>
+    <transform frame="145" x="53.0" y="30.0"/>
+    <transform frame="146" x="53.0" y="30.0"/>
+    <transform frame="147" x="53.0" y="30.0"/>
+  </segment>
+  <segment color="#33CCFF" end="146" start="0" stroke="5">
+    <point x="86.0" y="15.0"/>
+    <point x="84.0" y="17.0"/>
+    <point x="78.0" y="24.0"/>
+    <point x="73.0" y="31.0"/>
+    <point x="67.0" y="40.0"/>
+    <point x="62.0" y="50.0"/>
+    <point x="59.0" y="59.0"/>
+    <point x="59.0" y="64.0"/>
+    <point x="59.0" y="69.0"/>
+    <point x="59.0" y="71.0"/>
+    <point x="62.0" y="71.0"/>
+    <point x="69.0" y="71.0"/>
+    <point x="77.0" y="66.0"/>
+    <point x="83.0" y="64.0"/>
+    <point x="90.0" y="63.0"/>
+    <point x="97.0" y="63.0"/>
+    <point x="100.0" y="63.0"/>
+    <point x="102.0" y="63.0"/>
+    <point x="103.0" y="67.0"/>
+    <point x="103.0" y="74.0"/>
+    <point x="103.0" y="84.0"/>
+    <point x="101.0" y="93.0"/>
+    <point x="97.0" y="102.0"/>
+    <point x="96.0" y="110.0"/>
+    <point x="95.0" y="115.0"/>
+    <point x="94.0" y="119.0"/>
+    <point x="93.0" y="121.0"/>
+    <point x="93.0" y="123.0"/>
+    <transform frame="1" x="0.0" y="0.0"/>
+    <transform frame="2" x="0.0" y="0.0"/>
+    <transform frame="3" x="0.0" y="0.0"/>
+    <transform frame="4" x="0.0" y="0.0"/>
+    <transform frame="5" x="0.0" y="0.0"/>
+    <transform frame="6" x="0.0" y="0.0"/>
+    <transform frame="7" x="0.0" y="0.0"/>
+    <transform frame="8" x="0.0" y="0.0"/>
+    <transform frame="9" x="0.0" y="0.0"/>
+    <transform frame="10" x="0.0" y="0.0"/>
+    <transform frame="11" x="0.0" y="0.0"/>
+    <transform frame="12" x="0.0" y="0.0"/>
+    <transform frame="13" x="0.0" y="0.0"/>
+    <transform frame="14" x="0.0" y="0.0"/>
+    <transform frame="15" x="0.0" y="0.0"/>
+    <transform frame="16" x="0.0" y="0.0"/>
+    <transform frame="17" x="0.0" y="0.0"/>
+    <transform frame="18" x="0.0" y="0.0"/>
+    <transform frame="19" x="0.0" y="0.0"/>
+    <transform frame="20" x="0.0" y="0.0"/>
+    <transform frame="21" x="1.0" y="1.0"/>
+    <transform frame="22" x="4.0" y="3.0"/>
+    <transform frame="23" x="4.0" y="3.0"/>
+    <transform frame="24" x="5.0" y="4.0"/>
+    <transform frame="25" x="5.0" y="4.0"/>
+    <transform frame="26" x="8.0" y="7.0"/>
+    <transform frame="27" x="10.0" y="6.0"/>
+    <transform frame="28" x="18.0" y="9.0"/>
+    <transform frame="29" x="15.0" y="12.0"/>
+    <transform frame="30" x="17.0" y="14.0"/>
+    <transform frame="31" x="17.0" y="15.0"/>
+    <transform frame="32" x="21.0" y="13.0"/>
+    <transform frame="33" x="29.0" y="15.0"/>
+    <transform frame="34" x="37.0" y="16.0"/>
+    <transform frame="35" x="70.0" y="32.0"/>
+    <transform frame="36" x="27.0" y="23.0"/>
+    <transform frame="37" x="26.0" y="23.0"/>
+    <transform frame="38" x="21.0" y="20.0"/>
+    <transform frame="39" x="19.0" y="15.0"/>
+    <transform frame="40" x="19.0" y="15.0"/>
+    <transform frame="41" x="18.0" y="23.0"/>
+    <transform frame="42" x="15.0" y="27.0"/>
+    <transform frame="43" x="12.0" y="34.0"/>
+    <transform frame="44" x="17.0" y="21.0"/>
+    <transform frame="45" x="16.0" y="22.0"/>
+    <transform frame="46" x="25.0" y="16.0"/>
+    <transform frame="47" x="16.0" y="9.0"/>
+    <transform frame="48" x="10.0" y="-30.0"/>
+    <transform frame="49" x="27.0" y="18.0"/>
+    <transform frame="50" x="54.0" y="-37.0"/>
+    <transform frame="51" x="37.0" y="6.0"/>
+    <transform frame="52" x="41.0" y="9.0"/>
+    <transform frame="53" x="39.0" y="24.0"/>
+    <transform frame="54" x="54.0" y="59.0"/>
+    <transform frame="55" x="38.0" y="50.0"/>
+    <transform frame="56" x="33.0" y="54.0"/>
+    <transform frame="57" x="22.0" y="59.0"/>
+    <transform frame="58" x="24.0" y="33.0"/>
+    <transform frame="59" x="9.0" y="34.0"/>
+    <transform frame="60" x="20.0" y="24.0"/>
+    <transform frame="61" x="5.0" y="1.0"/>
+    <transform frame="62" x="26.0" y="-3.0"/>
+    <transform frame="63" x="37.0" y="-38.0"/>
+    <transform frame="64" x="52.0" y="4.0"/>
+    <transform frame="65" x="85.0" y="9.0"/>
+    <transform frame="66" x="39.0" y="26.0"/>
+    <transform frame="67" x="89.0" y="41.0"/>
+    <transform frame="68" x="66.0" y="57.0"/>
+    <transform frame="69" x="51.0" y="52.0"/>
+    <transform frame="70" x="49.0" y="45.0"/>
+    <transform frame="71" x="42.0" y="45.0"/>
+    <transform frame="72" x="14.0" y="63.0"/>
+    <transform frame="73" x="-1.0" y="66.0"/>
+    <transform frame="74" x="-30.0" y="59.0"/>
+    <transform frame="75" x="-40.0" y="38.0"/>
+    <transform frame="76" x="-44.0" y="6.0"/>
+    <transform frame="77" x="-35.0" y="-13.0"/>
+    <transform frame="78" x="-22.0" y="-24.0"/>
+    <transform frame="79" x="26.0" y="-32.0"/>
+    <transform frame="80" x="26.0" y="-32.0"/>
+    <transform frame="81" x="55.0" y="5.0"/>
+    <transform frame="82" x="59.0" y="22.0"/>
+    <transform frame="83" x="62.0" y="45.0"/>
+    <transform frame="84" x="50.0" y="57.0"/>
+    <transform frame="85" x="10.0" y="75.0"/>
+    <transform frame="86" x="-18.0" y="77.0"/>
+    <transform frame="87" x="-42.0" y="73.0"/>
+    <transform frame="88" x="-63.0" y="35.0"/>
+    <transform frame="89" x="-63.0" y="35.0"/>
+    <transform frame="90" x="-45.0" y="2.0"/>
+    <transform frame="91" x="-25.0" y="-13.0"/>
+    <transform frame="92" x="-7.0" y="-16.0"/>
+    <transform frame="93" x="16.0" y="-6.0"/>
+    <transform frame="94" x="52.0" y="34.0"/>
+    <transform frame="95" x="57.0" y="50.0"/>
+    <transform frame="96" x="61.0" y="77.0"/>
+    <transform frame="97" x="33.0" y="122.0"/>
+    <transform frame="98" x="13.0" y="135.0"/>
+    <transform frame="99" x="-46.0" y="154.0"/>
+    <transform frame="100" x="-77.0" y="155.0"/>
+    <transform frame="101" x="-122.0" y="108.0"/>
+    <transform frame="102" x="-123.0" y="62.0"/>
+    <transform frame="103" x="-102.0" y="-3.0"/>
+    <transform frame="104" x="-83.0" y="-22.0"/>
+    <transform frame="105" x="-25.0" y="-40.0"/>
+    <transform frame="106" x="63.0" y="-40.0"/>
+    <transform frame="107" x="98.0" y="-27.0"/>
+    <transform frame="108" x="152.0" y="1.0"/>
+    <transform frame="109" x="169.0" y="12.0"/>
+    <transform frame="110" x="188.0" y="28.0"/>
+    <transform frame="111" x="192.0" y="33.0"/>
+    <transform frame="112" x="196.0" y="39.0"/>
+    <transform frame="113" x="197.0" y="41.0"/>
+    <transform frame="114" x="197.0" y="41.0"/>
+    <transform frame="115" x="197.0" y="41.0"/>
+    <transform frame="116" x="197.0" y="41.0"/>
+    <transform frame="117" x="197.0" y="41.0"/>
+    <transform frame="118" x="197.0" y="41.0"/>
+    <transform frame="119" x="197.0" y="41.0"/>
+    <transform frame="120" x="197.0" y="41.0"/>
+    <transform frame="121" x="197.0" y="41.0"/>
+    <transform frame="122" x="197.0" y="41.0"/>
+    <transform frame="123" x="197.0" y="41.0"/>
+    <transform frame="124" x="197.0" y="41.0"/>
+    <transform frame="125" x="197.0" y="41.0"/>
+    <transform frame="126" x="197.0" y="41.0"/>
+    <transform frame="127" x="200.0" y="42.0"/>
+    <transform frame="128" x="214.0" y="46.0"/>
+    <transform frame="129" x="260.0" y="64.0"/>
+    <transform frame="130" x="290.0" y="80.0"/>
+    <transform frame="131" x="299.0" y="88.0"/>
+    <transform frame="132" x="320.0" y="100.0"/>
+    <transform frame="133" x="333.0" y="106.0"/>
+    <transform frame="134" x="350.0" y="115.0"/>
+    <transform frame="135" x="357.0" y="118.0"/>
+    <transform frame="136" x="366.0" y="122.0"/>
+    <transform frame="137" x="371.0" y="125.0"/>
+    <transform frame="138" x="380.0" y="128.0"/>
+    <transform frame="139" x="384.0" y="129.0"/>
+    <transform frame="140" x="384.0" y="129.0"/>
+    <transform frame="141" x="384.0" y="129.0"/>
+    <transform frame="142" x="384.0" y="129.0"/>
+    <transform frame="143" x="390.0" y="127.0"/>
+    <transform frame="144" x="396.0" y="123.0"/>
+    <transform frame="145" x="396.0" y="123.0"/>
+    <transform frame="146" x="396.0" y="123.0"/>
+    <transform frame="147" x="396.0" y="123.0"/>
+  </segment>
+</animation>
