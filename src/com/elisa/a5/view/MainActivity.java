@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -230,7 +229,7 @@ public class MainActivity extends Activity {
 
 	public class MyView extends View {
 		Paint paint = new Paint();
-		Path path;
+		Path path = new Path();
 
 		public MyView(Context context) {
 			super(context);
@@ -281,7 +280,7 @@ public class MainActivity extends Activity {
 							.getTranslates(currFrame);
 					if (transformedPoints.size() > 0) {
 						Point first = transformedPoints.get(0);
-						path = new Path();
+
 						path.moveTo(first.x * width / 720, first.y * height
 								/ 452);
 
@@ -306,6 +305,7 @@ public class MainActivity extends Activity {
 					color = convertColor(color);
 					this.setBackgroundColor(Color.parseColor(color));
 					canvas.drawPath(path, paint);
+					path.reset();
 				}
 			}
 		}
