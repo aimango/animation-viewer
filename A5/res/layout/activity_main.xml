@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/back"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="14dp" />
+        android:layout_marginBottom="14dp"
+        android:max="0" />
 
     <LinearLayout
         android:id="@+id/canvasArea"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/play"
+        android:enabled="false"
         android:text="@string/fwd" />
 
     <Button
@@ -40,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/slider"
         android:layout_centerHorizontal="true"
+        android:enabled="false"
         android:text="@string/play" />
 
     <Button
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/play"
+        android:enabled="false"
         android:text="@string/back" />
 
 </RelativeLayout>

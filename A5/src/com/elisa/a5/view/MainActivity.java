@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -45,8 +46,8 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00B386")));
+		setContentView(R.layout.activity_main);		
 
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
@@ -56,6 +57,7 @@ public class MainActivity extends Activity {
 		myView = new MyView(this);
 		v.addView(myView);
 		this.registerControllers();
+		super.onCreate(savedInstanceState);
 	}
 
 	private void setPlayback(boolean b) {
@@ -123,9 +125,6 @@ public class MainActivity extends Activity {
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 		});
-		slider.setMax(0);
-		playBtn.setEnabled(false);
-		setPlayback(false);
 	}
 
 	@Override

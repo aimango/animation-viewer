@@ -6,8 +6,6 @@ Directories:
 -"/A3" contains A3 code.
 -"/A5" contains A5 code.
 -"/xml-files" contains sample animations that can be imported into either A3 or A5.
-Note: I have included the .metadata folder so both A3 and A5 can be viewed as its own workspace if imported via Eclipse, although A3 is still run via makefile.
-
 
 A3 Notes:
 -I used my own A3 code. 
@@ -38,7 +36,7 @@ A5 Notes:
 -The expected directory for opening xml files from the device (or emulator) is "mnt/sdcard/", so move the files from the "xml-files" subdirectory to "mnt/sdcard/". 
 -Newly exported animations from A3 will automatically be saved in "xml-files". 
 
--To load from the app, press the "Open File" folder icon on the action bar. Then select the file to load. The file explorer filters by file extension when in the file dialog for loading. It filters by .xml extension so users do not have to see unrelated items. 
+-To load from the app, press the "Open File" folder icon on the action bar. Then select the file to load. The file explorer filters by file extension when in the file dialog for loading. It filters by .xml extension so users do not have to see unrelated items. I do not allow the user to access subdirectories, so the xml files need to be placed in "mnt/sdcard".
 
 -To access config settings, select the "Settings" wrench icon on the action bar. The user can change background colour and FPS here.
 
@@ -49,3 +47,4 @@ How to Run A5:
 Enhancements:
 -native PreferenceActivity used for Configuration screen.
 -filter by ".xml" extension in file load screen.
+-follow Android design guidelines (use of action bar).
