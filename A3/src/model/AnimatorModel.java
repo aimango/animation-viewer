@@ -347,7 +347,7 @@ public class AnimatorModel extends Object {
 					"{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(source, result);
 
-			System.out.println("File saved!");
+			System.out.println("File saved in "+filepath+".xml");
 
 			this.setState(State.selection);
 
