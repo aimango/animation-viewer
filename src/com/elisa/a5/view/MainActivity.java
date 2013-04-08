@@ -38,9 +38,9 @@ public class MainActivity extends Activity {
 	private Timer t;
 	private SeekBar slider;
 	private MyView myView;
-	private boolean settings = false;
+	private boolean settingsNav = false;
 	private TimerTask myTimerTask;
-	Button fwdBtn, playBtn, backBtn, stopBtn;
+	private Button fwdBtn, playBtn, backBtn, stopBtn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
 		t = new Timer();
 
 		RelativeLayout v = (RelativeLayout) findViewById(R.id.mainLayout);
+		myView = new MyView(this);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -61,19 +62,20 @@ public class MainActivity extends Activity {
 		params.addRule(RelativeLayout.ABOVE, R.id.slider);
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
 
-		myView = new MyView(this);
+		// add custom view dynamically to this activity's outermost layout,
+		// with custom params
 		v.addView(myView, params);
 		this.registerControllers();
 	}
 
 	private void setPlayback(boolean b) {
-
 		fwdBtn.setEnabled(b);
 		backBtn.setEnabled(b);
 		playBtn.setEnabled(b);
 		stopBtn.setEnabled(false);
 	}
 
+	// button and slider logic.
 	private void registerControllers() {
 
 		fwdBtn = (Button) findViewById(R.id.fwd);
@@ -143,9 +145,12 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		myView.invalidate();
+
+		// grab filename from sharedprefs
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile", 0);
 		String fileExplore = prefs.getString("fileexplore", "no");
 
+		// if we selected something while in the file explorer
 		if (fileExplore.equals("yes")) {
 			String name = prefs.getString("filename", "ohno");
 			model.loadAnimation(name);
@@ -154,14 +159,19 @@ public class MainActivity extends Activity {
 			model.gotoZero();
 			slider.setProgress(model.getFrame());
 		}
-		if (settings || fileExplore.equals("yes")) {
+		// if we went to settings or selected something while in the file
+		// explorer
+		if (settingsNav || fileExplore.equals("yes")) {
+			// grab saved fps from sharedprefs or use default of 30
 			SharedPreferences sharedPrefs = PreferenceManager
 					.getDefaultSharedPreferences(MainActivity.this);
 			int fps = Integer.parseInt(sharedPrefs.getString("fps", "30"));
-			if (t != null)
+
+			// cancel old timer if it's scheduled
+			if (t != null) {
 				t.cancel();
+			}
 			t = new Timer();
-			// this will run when timer elapses
 			myTimerTask = new TimerTask() {
 				@Override
 				public void run() {
@@ -183,7 +193,9 @@ public class MainActivity extends Activity {
 				}
 			};
 			t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
-			settings = false;
+			
+			// Reset the flags
+			settingsNav = false;
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putString("fileexplore", "no");
 			editor.commit();
@@ -204,7 +216,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
+		// Action bar items
 		switch (item.getItemId()) {
 		case R.id.menu_load:
 			Intent myIntent = new Intent(MainActivity.this,
@@ -219,7 +231,7 @@ public class MainActivity extends Activity {
 			Intent i = new Intent(this, SettingsActivity.class);
 			model.setState(AnimatorModel.State.draw);
 			MainActivity.this.startActivity(i);
-			settings = true;
+			settingsNav = true;
 			return true;
 
 		default:
@@ -227,6 +239,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	// custom view to draw the animation
 	public class MyView extends View {
 		Paint paint = new Paint();
 		Path path = new Path();
@@ -298,11 +311,13 @@ public class MainActivity extends Activity {
 					paint.setStrokeWidth(stroke);
 					paint.setStyle(Paint.Style.STROKE);
 
+					// grab saved background colour from sharedprefs
 					SharedPreferences sharedPrefs = PreferenceManager
 							.getDefaultSharedPreferences(MainActivity.this);
 					String color = sharedPrefs.getString("colors", "white");
 					color = convertColor(color);
 					this.setBackgroundColor(Color.parseColor(color));
+
 					canvas.drawPath(path, paint);
 					path.reset();
 				}

@@ -47,8 +47,8 @@ public class FileExplorerActivity extends ListActivity {
 		xmlFiles = new ArrayList<String>();
 		paths = new ArrayList<String>();
 
-		File f = new File(dirPath);
-		File[] files = f.listFiles();
+		File dir = new File(dirPath);
+		File[] files = dir.listFiles();
 
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
@@ -70,6 +70,7 @@ public class FileExplorerActivity extends ListActivity {
 	}
 
 	@Override
+	// When a list item is clicked, get the filename and save it in sharedprefs
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		File file = new File(paths.get(position));
 		String filename = file.getName();
