@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,7 @@ public class MainActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
 		t = new Timer();
@@ -58,7 +61,6 @@ public class MainActivity extends Activity {
 		params.addRule(RelativeLayout.BELOW, R.id.back);
 		params.addRule(RelativeLayout.ABOVE, R.id.slider);
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-		// params.addRule(RelativeLayout.lay)
 
 		myView = new MyView(this);
 		v.addView(myView, params);
@@ -66,6 +68,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void setPlayback(boolean b) {
+
 		fwdBtn.setEnabled(b);
 		backBtn.setEnabled(b);
 		playBtn.setEnabled(b);
@@ -115,7 +118,6 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		setPlayback(false);
 		slider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
@@ -126,13 +128,17 @@ public class MainActivity extends Activity {
 			}
 
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				model.setState(AnimatorModel.State.draw);
-				setPlayback(true);
+				if (model.getTotalFrames() > 0) {
+					model.setState(AnimatorModel.State.draw);
+					setPlayback(true);
+				}
 			}
 
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
 		});
+		slider.setMax(0);
+		setPlayback(false);
 	}
 
 	@Override
@@ -140,10 +146,11 @@ public class MainActivity extends Activity {
 		myView.invalidate();
 		SharedPreferences prefs = getSharedPreferences("MyPrefsFile", 0);
 		String fileExplore = prefs.getString("fileexplore", "no");
+
 		if (fileExplore.equals("yes")) {
 			String name = prefs.getString("filename", "ohno");
 			model.loadAnimation(name);
-			this.setPlayback(true);
+
 			slider.setMax(model.getTotalFrames());
 			model.gotoZero();
 			slider.setProgress(model.getFrame());
@@ -152,14 +159,22 @@ public class MainActivity extends Activity {
 			SharedPreferences sharedPrefs = PreferenceManager
 					.getDefaultSharedPreferences(MainActivity.this);
 			int fps = Integer.parseInt(sharedPrefs.getString("fps", "30"));
+			if (t != null)
+				t.cancel();
 			t = new Timer();
 			// this will run when timer elapses
 			myTimerTask = new TimerTask() {
 				@Override
 				public void run() {
 					if (model.getState() == AnimatorModel.State.playing) {
-						if (model.getFrame() >= model.getTotalFrames()) {
+						if (model.getFrame() >= slider.getMax()) {
 							model.setState(AnimatorModel.State.draw);
+							MainActivity.this.runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									setPlayback(true);
+								}
+							});
 						} else {
 							model.increaseFrames(false);
 							slider.setProgress(model.getFrame());
@@ -174,13 +189,17 @@ public class MainActivity extends Activity {
 			editor.putString("fileexplore", "no");
 			editor.commit();
 		}
+		if (slider.getMax() > 0) {
+			this.setPlayback(true);
+		}
 		super.onResume();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
 		return true;
 	}
 
@@ -191,14 +210,15 @@ public class MainActivity extends Activity {
 		case R.id.menu_load:
 			Intent myIntent = new Intent(MainActivity.this,
 					FileExplorerActivity.class);
-			t.cancel();
+
+			model.setState(AnimatorModel.State.draw);
 			MainActivity.this.startActivity(myIntent);
 
 			return true;
 
 		case R.id.menu_settings:
 			Intent i = new Intent(this, SettingsActivity.class);
-			t.cancel();
+			model.setState(AnimatorModel.State.draw);
 			MainActivity.this.startActivity(i);
 			settings = true;
 			return true;
@@ -209,6 +229,9 @@ public class MainActivity extends Activity {
 	}
 
 	public class MyView extends View {
+		Paint paint = new Paint();
+		Path path;
+
 		public MyView(Context context) {
 			super(context);
 		}
@@ -253,12 +276,12 @@ public class MainActivity extends Activity {
 			if (segments.size() > 0) {
 				for (Segment s : segments) {
 					int currFrame = model.getFrame();
-					Path path = new Path();
 
 					ArrayList<Point> transformedPoints = s
 							.getTranslates(currFrame);
 					if (transformedPoints.size() > 0) {
 						Point first = transformedPoints.get(0);
+						path = new Path();
 						path.moveTo(first.x * width / 720, first.y * height
 								/ 452);
 
@@ -273,7 +296,6 @@ public class MainActivity extends Activity {
 					}
 
 					int stroke = s.getStroke();
-					Paint paint = new Paint();
 					paint.setColor(Color.parseColor(s.getColor()));
 					paint.setStrokeWidth(stroke);
 					paint.setStyle(Paint.Style.STROKE);

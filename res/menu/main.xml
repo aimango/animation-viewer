@@ -3,10 +3,12 @@
 
     <item
         android:id="@+id/menu_load"
+        android:showAsAction="always"
         android:title="Load"/>
 
     <item
         android:id="@+id/menu_settings"
+        android:showAsAction="always"
         android:title="Settings"/>
 
 </menu>

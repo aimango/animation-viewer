@@ -151,8 +151,9 @@ public class AnimatorModel extends Object {
 				int end = Integer.parseInt(fstElmnt.getAttribute("end"));
 				int stroke = Integer.parseInt(fstElmnt.getAttribute("stroke"));
 
-				if (end > maxFrame)
+				if (end > maxFrame){
 					maxFrame = end;
+				}
 				ArrayList<Point> points = new ArrayList<Point>();
 				NodeList pts = fstElmnt.getElementsByTagName("point");
 				for (int p = 0; p < pts.getLength(); p++) {
@@ -170,7 +171,6 @@ public class AnimatorModel extends Object {
 
 				ArrayList<Matrix> atList = new ArrayList<Matrix>();
 				NodeList ats = fstElmnt.getElementsByTagName("transform");
-				System.out.println("at len" + ats.getLength());
 				for (int p = 0; p < ats.getLength(); p++) {
 					Node leNode = ats.item(p);
 					if (leNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -189,7 +189,8 @@ public class AnimatorModel extends Object {
 			}
 		}
 		this.setSegments(segs);
-		this.setTotalFrames(maxFrame);
+		totalframes = maxFrame;
+		
 		Log.i("Successfully imported file", filename);
 	}
 
