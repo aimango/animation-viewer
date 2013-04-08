@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,8 +24,22 @@ public class FileExplorerActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.file_explorer);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		myPath = (TextView) findViewById(R.id.path);
 		getDir("/mnt/sdcard");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			break;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+		return true;
 	}
 
 	private void getDir(String dirPath) {

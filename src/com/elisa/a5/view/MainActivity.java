@@ -261,7 +261,7 @@ public class MainActivity extends Activity {
 			} else if (color.equals("pink")) {
 				return "#FF66CC";
 			}
-			Log.w("Other color, default to white", color);
+			Log.i("Default the color to white", color);
 			return "#FFFFFF";
 		}
 
@@ -280,17 +280,16 @@ public class MainActivity extends Activity {
 							.getTranslates(currFrame);
 					if (transformedPoints.size() > 0) {
 						Point first = transformedPoints.get(0);
-
-						path.moveTo(first.x * width / 720, first.y * height
-								/ 452);
+						int firstx = first.x * width / 720;
+						int firsty = first.y * height / 452;
+						path.moveTo(firstx, firsty);
 
 						for (int j = 1; j < s.size(); j++) {
 							Point to = transformedPoints.get(j);
 							path.lineTo(to.x * width / 720, to.y * height / 452);
 						}
 						if (transformedPoints.size() == 1) {
-							path.lineTo(first.x * width / 720, first.y * height
-									/ 452);
+							path.lineTo(firstx, firsty);
 						}
 					}
 

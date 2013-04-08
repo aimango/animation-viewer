@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/wizard"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name="com.elisa.a5.view.FileExplorerActivity"
-            android:label="@string/app_name" >
+            android:label="@string/fileexplore" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name="com.elisa.a5.view.SettingsActivity"
-            android:label="@string/app_name" >
+            android:label="@string/settings" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
