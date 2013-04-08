@@ -2,22 +2,46 @@ CS 349 Assignment 5 README
 Elisa Lou 20372456
 
 
-How to Run:
+Directories:
+-"/A3" contains A3 code.
+-"/A5" contains A5 code.
+-"/xml-files" contains sample animations that can be imported into either A3 or A5.
+
+
+A3 Notes:
+-I used my own A3 code. 
+
+-The changes I've made since the A3 submission date:
+	-Fix bug for inserting frame.
+	-I originally had export as gif, but I changed that to export as xml file, as required by assignment 5. The files are named "exported#.xml", # starting at 0. This allows users to export multiple xml files. If only "exported0.xml" and "exported2.xml" exist in the directory (exported1.xml was likely deleted), the next file will be exported as "exported1.xml". 
+	-I added an Import function. I allow console input for the user to select which file to import from the "xml-files" directory. I didn't want to spend time using JList for file import, I feel that console input suffices.
+
+How to Run A3:
 -The makefile is located in the "src" directory. 
 -"make all" or "make" will compile and run the program.
 -"make run" will run the compiled program.
 -"make clean" will remove all .class files in the "src", "src/view", and "src/model" directories, and all of the generated .gif files in the "src" folder.
 
 
-Notes:
--Sample loadable xml files are located in the xml-files directory.
--The expected directory for opening xml files from the device (or emulator) is mnt/sdcard/.
--To load from the app, press the menu button and select Load, then select the file to load.
--To access config settings, press the menu button and select Settings. The user can change background color and FPS here.
+A5 Notes: 
+-I copied over the necessary model components from my A3 (all of the playback functionality).
 
-Assumptions & Scenarios:
--If user already loaded a file named "file.xml" and update it, they won't be able to load it again ....
+-As I've chosen to use action bars, I assume that only Android 3.0+ devices will run the app (as a minimum). I am targeting Android 4.1.
+
+-The app was tested on a 1280x720 4.2.2 emulator and a 800x480 4.1.2 device. The canvas area of my Android app stretches to fill the screen. Scaling is done based on the A3 canvas size (fixed at 720x452). 
+
+-The main activity (playback) is locked to portrait, but can be landscape or portrait in any other activity.
+
+-The expected directory for opening xml files from the device (or emulator) is "mnt/sdcard/", so move the files from the "xml-files" subdirectory to "mnt/sdcard/". 
+-Newly exported animations from A3 will automatically be saved in "xml-files". 
+
+-To load from the app, press the "Open File" folder icon on the action bar. Then select the file to load. The file explorer filters by file extension when in the file dialog for loading. It filters by .xml extension so users do not have to see unrelated items. 
+
+-To access config settings, select the "Settings" wrench icon on the action bar. The user can change background colour and FPS here.
+
+
+How to Run A5:
+-done via Eclipse. 
 
 Enhancements:
--filter by file extension when in the file dialog for loading. It filters by .xml extension so users do not have to see unrelated items. 
-
+-more native look.

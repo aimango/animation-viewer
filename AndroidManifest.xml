@@ -28,20 +28,10 @@
         <activity
             android:name="com.elisa.a5.view.FileExplorerActivity"
             android:label="@string/fileexplore" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.elisa.a5.view.SettingsActivity"
             android:label="@string/settings" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

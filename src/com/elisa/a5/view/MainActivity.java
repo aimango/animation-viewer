@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 	private MyView myView;
 	private boolean settingsNav = false;
 	private TimerTask myTimerTask;
-	private Button fwdBtn, playBtn, backBtn, stopBtn;
+	private Button fwdBtn, playBtn, backBtn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,6 @@ public class MainActivity extends Activity {
 		fwdBtn.setEnabled(b);
 		backBtn.setEnabled(b);
 		playBtn.setEnabled(b);
-		stopBtn.setEnabled(false);
 	}
 
 	// button and slider logic.
@@ -99,23 +98,22 @@ public class MainActivity extends Activity {
 		playBtn = (Button) findViewById(R.id.play);
 		playBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				playBtn.setEnabled(false);
-				backBtn.setEnabled(false);
-				fwdBtn.setEnabled(false);
-				stopBtn.setEnabled(true);
-				if (slider.getProgress() >= model.getTotalFrames()) {
-					model.gotoZero();
-					slider.setProgress(model.getFrame());
-				}
-				model.setState(AnimatorModel.State.playing);
-			}
-		});
+				if (playBtn.getText() == "Play") {
+					playBtn.setText("Pause");
 
-		stopBtn = (Button) findViewById(R.id.stop);
-		stopBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				setPlayback(true);
-				model.setState(AnimatorModel.State.draw);
+					backBtn.setEnabled(false);
+					fwdBtn.setEnabled(false);
+					if (slider.getProgress() >= model.getTotalFrames()) {
+						model.gotoZero();
+						slider.setProgress(model.getFrame());
+					}
+					model.setState(AnimatorModel.State.playing);
+				} else {
+					playBtn.setText("Play");
+					setPlayback(true);
+					model.setState(AnimatorModel.State.draw);
+					
+				}
 			}
 		});
 
@@ -124,7 +122,7 @@ public class MainActivity extends Activity {
 					boolean fromUser) {
 				model.setFrame(progress);
 				TextView lbl = (TextView) findViewById(R.id.timeLbl);
-				lbl.setText("Current Frame:" + progress);
+				lbl.setText("Frame: " + progress);
 				myView.invalidate();
 			}
 
@@ -181,6 +179,7 @@ public class MainActivity extends Activity {
 							MainActivity.this.runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
+									playBtn.setText("Play");
 									setPlayback(true);
 								}
 							});
@@ -193,7 +192,7 @@ public class MainActivity extends Activity {
 				}
 			};
 			t.scheduleAtFixedRate(myTimerTask, 0, 1000 / fps);
-			
+
 			// Reset the flags
 			settingsNav = false;
 			SharedPreferences.Editor editor = prefs.edit();

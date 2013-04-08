@@ -1,58 +1,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
     <SeekBar
-        android1:id="@+id/slider"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:layout_alignParentBottom="true"
-        android1:layout_alignParentLeft="true"
-        android1:layout_marginBottom="38dp" />
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="38dp" />
 
     <TextView
-        android1:id="@+id/timeLbl"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignParentBottom="true"
-        android1:layout_centerHorizontal="true"
-        android1:layout_marginBottom="16dp"
-        android1:text="Current Time: 0" />
+        android:id="@+id/timeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="@string/defaultframe" />
+
 
     <Button
-        android1:id="@+id/stop"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignTop="@+id/play"
-        android1:layout_toRightOf="@+id/play"
-        android1:text="Stop" />
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/play"
+        android:layout_alignBottom="@+id/play"
+        android:layout_toRightOf="@+id/play"
+        android:text="@string/back" />
 
     <Button
-        android1:id="@+id/back"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignBaseline="@+id/stop"
-        android1:layout_alignBottom="@+id/stop"
-        android1:layout_toRightOf="@+id/stop"
-        android1:text="Back" />
+        android:id="@+id/fwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/back"
+        android:layout_alignBottom="@+id/back"
+        android:layout_toRightOf="@+id/back"
+        android:text="@string/fwd" />
 
     <Button
-        android1:id="@+id/fwd"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignBaseline="@+id/back"
-        android1:layout_alignBottom="@+id/back"
-        android1:layout_toRightOf="@+id/back"
-        android1:text="Fwd" />
-
-    <Button
-        android1:id="@+id/play"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignParentLeft="true"
-        android1:layout_alignParentTop="true"
-        android1:text="Play" />
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/play" />
 
 </RelativeLayout>
