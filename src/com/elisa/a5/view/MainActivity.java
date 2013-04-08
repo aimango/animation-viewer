@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
 	private void setPlayback(boolean b) {
 		fwdBtn.setEnabled(b);
 		backBtn.setEnabled(b);
-		playBtn.setEnabled(b);
 	}
 
 	// button and slider logic.
@@ -88,21 +87,19 @@ public class MainActivity extends Activity {
 		playBtn = (Button) findViewById(R.id.play);
 		playBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if (playBtn.getText() == "Play") {
-					playBtn.setText("Pause");
-
-					backBtn.setEnabled(false);
-					fwdBtn.setEnabled(false);
+				
+				if (playBtn.getText().equals("Play")) {
 					if (slider.getProgress() >= model.getTotalFrames()) {
 						model.gotoZero();
 						slider.setProgress(model.getFrame());
 					}
 					model.setState(AnimatorModel.State.playing);
+					playBtn.setText("Pause");
+					setPlayback(false);
 				} else {
+					model.setState(AnimatorModel.State.draw);
 					playBtn.setText("Play");
 					setPlayback(true);
-					model.setState(AnimatorModel.State.draw);
-
 				}
 			}
 		});
@@ -127,6 +124,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		slider.setMax(0);
+		playBtn.setEnabled(false);
 		setPlayback(false);
 	}
 
@@ -190,6 +188,7 @@ public class MainActivity extends Activity {
 			editor.commit();
 		}
 		if (slider.getMax() > 0) {
+			playBtn.setEnabled(true);
 			this.setPlayback(true);
 		}
 		super.onResume();
