@@ -25,7 +25,7 @@ public class Animator {
 	public static void main(String[] args) {
 
 		final AnimatorModel model = new AnimatorModel();
-		JFrame frame = new JFrame("Assignment 3 - MVC");
+		JFrame frame = new JFrame("Assignment 3 - MVC Updated");
 
 		Container content = frame.getContentPane();
 		content.setLayout(new BorderLayout());
