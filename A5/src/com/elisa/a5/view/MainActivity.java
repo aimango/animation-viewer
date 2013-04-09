@@ -122,6 +122,7 @@ public class MainActivity extends Activity {
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				if (model.getTotalFrames() > 0) {
 					model.setState(AnimatorModel.State.draw);
+					playBtn.setText("Play");
 					setPlayback(true);
 				}
 			}
