@@ -149,8 +149,14 @@ public class AnimatorModel extends Object {
 
 		Element animation = (Element) (docc.getElementsByTagName("animation"))
 				.item(0);
-		dimenx = Integer.parseInt(animation.getAttribute("dimenX"));
-		dimeny = Integer.parseInt(animation.getAttribute("dimenY"));
+		try {
+			dimenx = Integer.parseInt(animation.getAttribute("dimenX"));
+			dimeny = Integer.parseInt(animation.getAttribute("dimenY"));
+
+		} catch (NumberFormatException e) {
+			dimenx = 720;
+			dimeny = 452;
+		}
 
 		NodeList nodeLst = docc.getElementsByTagName("segment");
 		ArrayList<Segment> segs = new ArrayList<Segment>();

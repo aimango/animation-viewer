@@ -192,6 +192,7 @@ public class MainActivity extends Activity {
 		}
 		if (slider.getMax() > 0) {
 			playBtn.setEnabled(true);
+			playBtn.setText("Play");
 			this.setPlayback(true);
 		}
 		super.onResume();
