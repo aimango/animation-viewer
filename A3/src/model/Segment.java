@@ -101,7 +101,6 @@ public class Segment extends Object {
 
 	public void copyFrame(int frame) {
 		endTime++;
-		System.out.println(frame - 1 -startTime);
 		if (endTime < frame)
 			this.createFrame(frame);
 		atList.add(frame-startTime,

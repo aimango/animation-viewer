@@ -173,7 +173,6 @@ public class AnimatorModel extends Object {
 
 				if (oldX > x - 10 && oldX < x + 10 && oldY > y - 10
 						&& oldY < y + 10) {
-					// System.out.println("Erasing the " + i + "th obj");
 					s.setEndTime(currframe - 1);
 					break;
 				}
