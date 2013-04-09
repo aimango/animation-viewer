@@ -12,15 +12,15 @@ A3 Notes:
 
 -The changes I've made since the A3 submission date:
 	-Fix bug for inserting frame.
-	-I originally had export as gif, but I changed that to export as xml file, as required by assignment 5. The files are named "exported#.xml", # incrementing from 0, 1, 2, 3, etc. This allows users to export multiple xml files. If only "exported0.xml" and "exported2.xml" exist in the directory (exported1.xml was likely deleted), the next file will be exported as "exported1.xml". 
-	-I added an Import function. I allow console input for the user to select which file to import from the "xml-files" directory. I didn't want to spend time using JList for file import, I feel that console input suffices.
+	-I originally had export as gif, but I changed that to export as xml file, as required by assignment 5. The user can save the xml file in any directory via JFileChooser, and I automatically append ".xml" if the user did not specify a file extension or specified the wrong file extension.
+	-I added an Import function. They can only load a ".xml" file. 
 
 
 How to Run A3:
--The makefile is located in the "src" directory. 
+-The makefile is located in the "A3/src" directory. 
 -"make all" or "make" will compile and run the program.
 -"make run" will run the compiled program.
--"make clean" will remove all .class files in the "src", "src/view", and "src/model" directories, and all of the generated .gif files in the "src" folder.
+-"make clean" will remove all .class files in the "src", "src/view", and "src/model" directories.
 
 
 
@@ -34,7 +34,6 @@ A5 Notes:
 -The main activity (playback) is locked to portrait, but can be landscape or portrait in any other activity.
 
 -The expected directory for opening xml files from the device (or emulator) is "mnt/sdcard/", so move the files from the "xml-files" subdirectory to "mnt/sdcard/". 
--Newly exported animations from A3 will automatically be saved in "xml-files". 
 
 -To load from the app, press the "Open File" folder icon on the action bar. Then select the file to load. The file explorer filters by file extension when in the file dialog for loading. It filters by .xml extension so users do not have to see unrelated items. I do not allow the user to access subdirectories, so the xml files need to be placed in "mnt/sdcard".
 
@@ -46,5 +45,7 @@ How to Run A5:
 
 Enhancements:
 -native PreferenceActivity used for Configuration screen.
--filter by ".xml" extension in file load screen.
+-filter by ".xml" extension in file load screens (both A3 and A5)
+-import functionality for A3
 -follow Android design guidelines (use of action bar).
+-scaling of the animation when exporting to Android

@@ -11,5 +11,4 @@ run:
 clean:
 		$(RM) view/*.class
 		$(RM) model/*.class
-		$(RM) gif/*.class
 		$(RM) *.class
