@@ -7,14 +7,16 @@ import java.awt.geom.GeneralPath;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -274,88 +276,107 @@ public class AnimatorModel extends Object {
 	}
 
 	public void exportImage() {
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder = null;
 		try {
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-			Document doc = docBuilder.newDocument();
-			Element rootElement = doc.createElement("animation");
-			doc.appendChild(rootElement);
-
-			for (Segment s : this.getSegments()) {
-				Element segment = doc.createElement("segment");
-				rootElement.appendChild(segment);
-				String hexColor = String.format("#%06X", (0xFFFFFF & s
-						.getColor().getRGB()));
-				segment.setAttribute("color", hexColor);
-				segment.setAttribute("stroke", String.valueOf(s.getStroke()));
-				segment.setAttribute("start", String.valueOf(s.getStartTime()));
-				segment.setAttribute("end", String.valueOf(s.getEndTime()));
-
-				for (int m = 0; m < s.size(); m++) {
-					Point p = s.getPoint(m);
-					Element point = doc.createElement("point");
-					segment.appendChild(point);
-					point.setAttribute("x", String.valueOf(p.getX()));
-					point.setAttribute("y", String.valueOf(p.getY()));
-				}
-
-				ArrayList<AffineTransform> atList = s.getAtList();
-				int i = 0;
-				for (AffineTransform a : atList) { // check bounds
-					Element transform = doc.createElement("transform");
-					segment.appendChild(transform);
-					transform.setAttribute("frame",
-							String.valueOf(s.getStartTime() + i + 1));
-					transform.setAttribute("x",
-							String.valueOf(a.getTranslateX()));
-					transform.setAttribute("y",
-							String.valueOf(a.getTranslateY()));
-					i++;
-				}
-
-			}
-
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory
-					.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-
-			StreamResult result = null;
-			String filepath = "../xml-files/exported0";
-			int i = 0;
-			while (true) {
-				File f = new File(filepath + ".xml");
-				if (f.exists()) {
-					filepath = filepath.substring(0, 21);
-					i++;
-					filepath = filepath + Integer.toString(i);
-					f = new File(filepath + ".xml");
-				} else {
-					break;
-				}
-			}
-			result = new StreamResult(new File(filepath + ".xml"));
-
-			// Output to console for testing
-			// StreamResult result = new StreamResult(System.out);
-
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(
-					"{http://xml.apache.org/xslt}indent-amount", "2");
-			transformer.transform(source, result);
-
-			System.out.println("File saved in "+filepath+".xml");
-
-			this.setState(State.selection);
-
-		} catch (ParserConfigurationException pce) {
-			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
+			docBuilder = docFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
 		}
+
+		Document doc = docBuilder.newDocument();
+		Element rootElement = doc.createElement("animation");
+		doc.appendChild(rootElement);
+
+		for (Segment s : this.getSegments()) {
+			Element segment = doc.createElement("segment");
+			rootElement.appendChild(segment);
+			String hexColor = String.format("#%06X", (0xFFFFFF & s.getColor()
+					.getRGB()));
+			segment.setAttribute("color", hexColor);
+			segment.setAttribute("stroke", String.valueOf(s.getStroke()));
+			segment.setAttribute("start", String.valueOf(s.getStartTime()));
+			segment.setAttribute("end", String.valueOf(s.getEndTime()));
+
+			for (int m = 0; m < s.size(); m++) {
+				Point p = s.getPoint(m);
+				Element point = doc.createElement("point");
+				segment.appendChild(point);
+				point.setAttribute("x", String.valueOf(p.getX()));
+				point.setAttribute("y", String.valueOf(p.getY()));
+			}
+
+			ArrayList<AffineTransform> atList = s.getAtList();
+			int i = 0;
+			for (AffineTransform a : atList) { // check bounds
+				Element transform = doc.createElement("transform");
+				segment.appendChild(transform);
+				transform.setAttribute("frame",
+						String.valueOf(s.getStartTime() + i + 1));
+				transform.setAttribute("x", String.valueOf(a.getTranslateX()));
+				transform.setAttribute("y", String.valueOf(a.getTranslateY()));
+				i++;
+			}
+
+		}
+
+		// open a file explorer and write the content into xml file
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileFilter() {
+
+			@Override
+			public String getDescription() {
+				return ".xml";
+			}
+
+			@Override
+			public boolean accept(File file) {
+				if (file.getName().endsWith(".xml") || file.isDirectory()) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+
+		int returnVal = fc.showSaveDialog(null);
+		File file = null;
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			file = fc.getSelectedFile();
+			if (!file.getName().endsWith(".xml")) {
+				file = new File(file.getAbsolutePath() + ".xml");
+			}
+		} else {
+			return;
+		}
+
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer = null;
+		try {
+			transformer = transformerFactory.newTransformer();
+		} catch (TransformerConfigurationException e1) {
+			e1.printStackTrace();
+		}
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = null;
+		result = new StreamResult(file);
+
+		// Output to console for testing
+		// StreamResult result = new StreamResult(System.out);
+
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty(
+				"{http://xml.apache.org/xslt}indent-amount", "2");
+		try {
+			transformer.transform(source, result);
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		System.out.println("File saved in " + file.getAbsolutePath());
+
+		this.setState(State.selection);
 	}
 
 	public static boolean isInteger(String s) {
@@ -368,55 +389,42 @@ public class AnimatorModel extends Object {
 		return true;
 	}
 
-	public String walk(String path) {
-
-		File root = new File(path);
-		File[] list = root.listFiles();
-		List<String> xmlFiles = new ArrayList<String>();
-
-		System.out.println("Select file by number or press q to cancel:");
-		int i = 0;
-		for (File file : list) {
-			if (!file.isDirectory()) { // only look at files
-				String name = file.getName();
-				int j = name.lastIndexOf('.');
-				if (j > 0) {
-					String extension = name.substring(j + 1);
-					if (extension.equals("xml")) {
-						xmlFiles.add(name);
-						System.out.println("[" + i + "] " + name);
-						i++;
-					}
-				}
-			}
-		}
-		while (true) {
-			Scanner in = new Scanner(System.in);
-			String index = in.nextLine();
-			if (isInteger(index)) {
-				int ind = Integer.parseInt(index);
-				if (ind >= 0 && ind < xmlFiles.size()) {
-					return xmlFiles.get(ind);
-				} else {
-					System.out.println("Please enter an integer from 0 to "
-							+ String.valueOf(xmlFiles.size() - 1));
-				}
-			} else if (index.equals("q")) {
-				return "";
-			} else {
-				System.out.println("Please enter an integer");
-			}
-		}
-	}
-
 	public void loadAnimation() {
 		this.setState(State.load);
-		String filename = walk("../xml-files");
-		if (filename == "") {
-			System.out.println("Import operation cancelled.");
+
+		// use filechooser, grey out non-xml files.
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileFilter() {
+			@Override
+			public boolean accept(File file) {
+				if (file.getName().endsWith(".xml") || file.isDirectory()) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			@Override
+			public String getDescription() {
+				return ".xml";
+			}
+		});
+		int returnVal = fc.showOpenDialog(null);
+		File file = null;
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			file = fc.getSelectedFile();
+			if (!file.getName().endsWith(".xml")) {
+				JOptionPane.showMessageDialog(fc,
+						"Only xml files can be imported.");
+			}
+		} else {
 			return;
 		}
-		File file = new File("../xml-files/" + filename);
+
+		if (!file.getName().endsWith(".xml")) {
+			System.out.println("User chose non-xml file.");
+			return;
+		}
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = null;
 		try {
@@ -489,7 +497,7 @@ public class AnimatorModel extends Object {
 		this.setSegments(segs);
 		this.setTotalFrames(maxFrame);
 		this.updateAllViews();
-		System.out.println("Animation imported from file " + filename
+		System.out.println("Animation imported from file " + file.getName()
 				+ " with " + maxFrame + " frames.");
 	}
 

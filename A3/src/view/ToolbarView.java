@@ -77,8 +77,8 @@ public class ToolbarView extends JPanel implements IView {
 		this.add(selectToggle);
 		this.add(insertFrame);
 		this.add(clearButton);
-		this.add(saveButton);
 		this.add(loadButton);
+		this.add(saveButton);
 
 		this.registerListeners();
 		model = aModel;
@@ -136,19 +136,21 @@ public class ToolbarView extends JPanel implements IView {
 
 	}
 
-	public void setAllButtons(boolean b){
+	public void setAllButtons(boolean b) {
 		eraseToggle.setEnabled(b);
 		drawToggle.setEnabled(b);
 		insertFrame.setEnabled(b);
 		clearButton.setEnabled(b);
 		selectToggle.setEnabled(b);
 	}
+
 	@Override
 	public void updateView() {
 
 		AnimatorModel.State state = model.getState();
 		// disable everything during playback
-		if (state == AnimatorModel.State.playing || state == AnimatorModel.State.load) {
+		if (state == AnimatorModel.State.playing
+				|| state == AnimatorModel.State.load) {
 			this.setAllButtons(false);
 		} else {
 			this.setAllButtons(true);

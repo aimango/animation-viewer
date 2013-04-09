@@ -230,7 +230,6 @@ public class CanvasView extends JComponent implements IView {
 		});
 	}
 
-	
 	public void clearScreen(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, getSize().width, getSize().height);
