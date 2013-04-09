@@ -48,5 +48,5 @@ Enhancements:
 -Native PreferenceActivity used for Configuration screen.
 -Filter by ".xml" extension in file load screens (both A3 and A5)
 -Import functionality for A3
--Follow Android design guidelines (use of action bar).
+-Follow Android design guidelines (use of action bar). Use of custom icons.
 -Scaling: I save my canvas resolution in the xml file when I export from the desktop app. The resolution can be restored on the Android app, and scaling is done accordingly. 

@@ -147,6 +147,7 @@ public class AnimatorModel extends Object {
 		docc.getDocumentElement().normalize();
 		int maxFrame = 0;
 
+		// get the dimension attributes
 		Element animation = (Element) (docc.getElementsByTagName("animation"))
 				.item(0);
 		try {
