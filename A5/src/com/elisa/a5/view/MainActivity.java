@@ -32,7 +32,10 @@ import com.elisa.a5.model.AnimatorModel;
 import com.elisa.a5.model.Segment;
 
 /**
- * Elisa Lou 20372456 Assignment 5 Android Winter '13
+ * 
+ * Elisa Lou 20372456 
+ * Assignment 5 Android Winter '13
+ * 
  */
 public class MainActivity extends Activity {
 	private AnimatorModel model;
@@ -46,8 +49,9 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00B386")));
-		setContentView(R.layout.activity_main);		
+		getActionBar().setBackgroundDrawable(
+				new ColorDrawable(Color.parseColor("#00B386")));
+		setContentView(R.layout.activity_main);
 
 		slider = (SeekBar) findViewById(R.id.slider);
 		model = new AnimatorModel();
@@ -89,7 +93,7 @@ public class MainActivity extends Activity {
 		playBtn = (Button) findViewById(R.id.play);
 		playBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+
 				if (playBtn.getText().equals("Play")) {
 					if (slider.getProgress() >= model.getTotalFrames()) {
 						model.gotoZero();
@@ -261,6 +265,7 @@ public class MainActivity extends Activity {
 			} else if (color.equals("pink")) {
 				return "#FF66CC";
 			}
+
 			Log.i("Default the color to white", color);
 			return "#FFFFFF";
 		}
@@ -279,20 +284,24 @@ public class MainActivity extends Activity {
 					ArrayList<Point> transformedPoints = s
 							.getTranslates(currFrame);
 					if (transformedPoints.size() > 0) {
+						int scaleX = model.getDimenX();
+						int scaleY = model.getDimenY();
+
 						Point first = transformedPoints.get(0);
-						int firstx = first.x * width / 720;
-						int firsty = first.y * height / 452;
+						int firstx = first.x * width / scaleX;
+						int firsty = first.y * height / scaleY;
 						path.moveTo(firstx, firsty);
 
 						for (int j = 1; j < s.size(); j++) {
 							Point to = transformedPoints.get(j);
-							path.lineTo(to.x * width / 720, to.y * height / 452);
+							path.lineTo(to.x * width / scaleX, to.y * height
+									/ scaleY);
 						}
 						if (transformedPoints.size() == 1) {
 							path.lineTo(firstx, firsty);
 						}
 					}
-
+ 
 					int stroke = s.getStroke();
 					paint.setColor(Color.parseColor(s.getColor()));
 					paint.setStrokeWidth(stroke);

@@ -29,7 +29,7 @@ public class AnimatorModel extends Object {
 	private State state = State.draw;
 	private int currframe = 0;
 	private int totalframes = 0;
-
+	private int dimenx, dimeny;
 	private String paletteColor = String.valueOf(Color.BLACK);
 	private int strokeSize = 5;
 	private String currFile = "";
@@ -41,6 +41,14 @@ public class AnimatorModel extends Object {
 
 	public String getCurrFile() {
 		return currFile;
+	}
+
+	public int getDimenX() {
+		return dimenx;
+	}
+
+	public int getDimenY() {
+		return dimeny;
 	}
 
 	public void setSegments(ArrayList<Segment> segs) {
@@ -138,6 +146,12 @@ public class AnimatorModel extends Object {
 		}
 		docc.getDocumentElement().normalize();
 		int maxFrame = 0;
+
+		Element animation = (Element) (docc.getElementsByTagName("animation"))
+				.item(0);
+		dimenx = Integer.parseInt(animation.getAttribute("dimenX"));
+		dimeny = Integer.parseInt(animation.getAttribute("dimenY"));
+
 		NodeList nodeLst = docc.getElementsByTagName("segment");
 		ArrayList<Segment> segs = new ArrayList<Segment>();
 		for (int s = 0; s < nodeLst.getLength(); s++) { // segments
@@ -151,7 +165,7 @@ public class AnimatorModel extends Object {
 				int end = Integer.parseInt(fstElmnt.getAttribute("end"));
 				int stroke = Integer.parseInt(fstElmnt.getAttribute("stroke"));
 
-				if (end > maxFrame){
+				if (end > maxFrame) {
 					maxFrame = end;
 				}
 				ArrayList<Point> points = new ArrayList<Point>();
@@ -190,7 +204,7 @@ public class AnimatorModel extends Object {
 		}
 		this.setSegments(segs);
 		totalframes = maxFrame;
-		
+
 		Log.i("Successfully imported file", filename);
 	}
 
