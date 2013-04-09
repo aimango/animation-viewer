@@ -392,9 +392,10 @@ public class AnimatorModel extends Object {
 	public void loadAnimation() {
 		this.setState(State.load);
 
-		// use filechooser, grey out non-xml files.
+		// use filechooser to open files
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileFilter() {
+
 			@Override
 			public boolean accept(File file) {
 				if (file.getName().endsWith(".xml") || file.isDirectory()) {
@@ -409,22 +410,24 @@ public class AnimatorModel extends Object {
 				return ".xml";
 			}
 		});
+
+		// grey out non-xml files.
 		int returnVal = fc.showOpenDialog(null);
 		File file = null;
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			file = fc.getSelectedFile();
+
+			// handle non-xml selection
 			if (!file.getName().endsWith(".xml")) {
 				JOptionPane.showMessageDialog(fc,
 						"Only xml files can be imported.");
+				System.out.println("User chose non-xml file.");
+				return;
 			}
 		} else {
 			return;
 		}
 
-		if (!file.getName().endsWith(".xml")) {
-			System.out.println("User chose non-xml file.");
-			return;
-		}
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = null;
 		try {
