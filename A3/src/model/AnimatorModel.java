@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
@@ -40,7 +41,7 @@ public class AnimatorModel extends Object {
 	private boolean stillDragging = true;
 	private int currframe = 0;
 	private int totalframes = 0;
-
+	private int dimenx = 720, dimeny = 452;
 	private Color paletteColor = Color.BLACK;
 	private int strokeSize = 5;
 
@@ -53,6 +54,18 @@ public class AnimatorModel extends Object {
 
 	// Override the default constructor, making it private.
 	public AnimatorModel() {
+	}
+
+	public void setDimens(Dimension d) {
+		dimenx = d.width;
+		dimeny = d.height;
+	}
+	
+	public int getDimenX(){
+		return dimenx;
+	}
+	public int getDimenY(){
+		return dimeny;
 	}
 
 	public void setSegments(ArrayList<Segment> segs) {
@@ -286,6 +299,8 @@ public class AnimatorModel extends Object {
 
 		Document doc = docBuilder.newDocument();
 		Element rootElement = doc.createElement("animation");
+		rootElement.setAttribute("dimenX", String.valueOf(dimenx));
+		rootElement.setAttribute("dimenY", String.valueOf(dimeny));
 		doc.appendChild(rootElement);
 
 		for (Segment s : this.getSegments()) {
@@ -293,6 +308,7 @@ public class AnimatorModel extends Object {
 			rootElement.appendChild(segment);
 			String hexColor = String.format("#%06X", (0xFFFFFF & s.getColor()
 					.getRGB()));
+
 			segment.setAttribute("color", hexColor);
 			segment.setAttribute("stroke", String.valueOf(s.getStroke()));
 			segment.setAttribute("start", String.valueOf(s.getStartTime()));

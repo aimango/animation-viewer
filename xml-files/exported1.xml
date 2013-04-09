@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<animation>
+<animation dimenX="720" dimenY="452">
   <segment color="#33FF66" end="146" start="0" stroke="5">
     <point x="50.0" y="14.0"/>
     <point x="49.0" y="14.0"/>
