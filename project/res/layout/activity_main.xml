@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SeekBar
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/back"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:max="0" />
+
+    <LinearLayout
+        android:id="@+id/canvasArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/slider"
+        android:padding="2dp" />
+
+    <TextView
+        android:id="@+id/timeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/back"
+        android:layout_centerHorizontal="true"
+        android:text="@string/defaultframe" />
+
+    <Button
+        android:id="@+id/fwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/play"
+        android:enabled="false"
+        android:text="@string/fwd" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slider"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:text="@string/play" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/play"
+        android:enabled="false"
+        android:text="@string/back" />
+
+</RelativeLayout>

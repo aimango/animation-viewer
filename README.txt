@@ -1,32 +1,16 @@
-CS 349 Assignment 5 README
-Elisa Lou 20372456
+This is an Animation viewer project for Android, built by myself (Elisa Lou). Written for a CS 349 Assignment taught at uWaterloo during the Winter 2013 term. It is an extension of my Java animation builder (desktop version) that can be viewed at https://github.com/aimango/sketch-animator
+
+Disclaimer: Policy 73 at Waterloo defines IP ownership. Students own everything that they produce as a member of the Waterloo community, and the university has no implied ownership in anything created by its students.
+
+-----
 
 
 Directories:
--"/A3" contains A3 code.
--"/A5" contains A5 code.
--"/xml-files" contains sample animations that can be imported into either A3 or A5.
+-"/project" contains the project code.
+-"/xml-files" contains sample animations that can be imported into the project.
 
-A3 Notes:
--I used my own A3 code. 
-
--The changes I've made since the A3 submission date:
-	-Fix bug for inserting frame.
-	-I originally had export as gif, but I changed that to export as xml file, as required by assignment 5. The user can save the xml file in any directory via JFileChooser, and I automatically append ".xml" if the user did not specify a file extension or specified the wrong file extension.
-	-I added an Import function. Users can only load an ".xml" file. 
-
--I force a minimum screen size of 400x600 (width x height).
-
-How to Run A3:
--The makefile is located in the "A3/src" directory. 
--"make all" or "make" will compile and run the program.
--"make run" will run the compiled program.
--"make clean" will remove all .class files in the "src", "src/view", and "src/model" directories.
-
-
-
-A5 Notes: 
--I copied over the necessary model components from my A3 (all of the playback functionality).
+Notes: 
+-I copied over the necessary model components from my sketch-animator project (all of the playback functionality).
 
 -As I've chosen to use action bars, I assume that only Android 3.0+ devices will run the app (as a minimum). I am targeting Android 4.1.
 
@@ -50,3 +34,6 @@ Enhancements:
 -Import functionality for A3
 -Follow Android design guidelines (use of action bar). Use of custom icons.
 -Scaling: I save my canvas resolution in the xml file when I export from the desktop app. The resolution can be restored on the Android app, and scaling is done accordingly. 
+
+Future:
+-Port draw/erase/select/animation functionalities to Android.
